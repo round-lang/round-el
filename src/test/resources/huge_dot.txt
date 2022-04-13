@@ -1,0 +1,11 @@
+public class HugeDot {
+
+    HugeDot a;
+
+    public static void main(String[] args) {
+        HugeDot a = new HugeDot();
+        a = $code;
+        System.out.println(a);
+    }
+
+}

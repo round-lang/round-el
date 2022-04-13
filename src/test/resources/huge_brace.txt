@@ -1,0 +1,8 @@
+public class HugeBrace {
+
+    public static void main(String[] args) {
+        int a = args.length;
+        int b = $code;
+        System.out.println(b);
+    }
+}

@@ -1,0 +1,51 @@
+// instruction
+import java.text.SimpleDateFormat;
+
+// assign
+ts1 = System.nanoTime();
+ts2 = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(s).getTime();
+tss = [ ts1, ts2 ];
+
+mat = [
+    1, 2, 3, 4;
+    1, 3, 5, 7;
+];
+
+// invoke
+System.out.println(dict);
+printf("%s = %s + %s", 'kick
+your
+ass', tss, dict.size());
+
+// if
+if ((n = Math.random()) < 0.5 && 1 < 2) {
+    "
+    doc string
+    "
+} else if (n > 0.75 ){
+    log.info("hit else#{}", 1);
+} else {
+    // return early
+    return false;
+}
+
+// for
+cc = 0;
+while(cc > 2 and ((a = 1) > (b + a) || (c = b ^ 3) != (a = b = d.e()))) {
+    if(Math.random() < 0.1) continue;
+    println("round el " + (cc=cc+1));
+    if(Math.random() > 0.99) break;
+}
+
+size1 = mat.size();
+size2 = mat.get(0).size();
+for(i = 0; i < size1; i = i + 1) {
+    for(j = 0; j < size2; j = j + 1) {
+        println(mat.get(0).get(0));
+    }
+}
+
+/* return */
+date_str_to_number(s) >= date_str_to_number(x)
+or Long.parseLong(y) > System.currentTimeMillis()
+or z < z.pow3()
