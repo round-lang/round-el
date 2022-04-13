@@ -1,0 +1,19 @@
+== 简介
+
+其他语言: https://github.com/round-lang/round-el/blob/master/README_.adoc[English]
+
+> https://github.com/round-lang/round-el/blob/master/src/test/java/org/dreamcat/round/el/ElEngineTest.java[测试用例]
+
+> https://github.com/round-lang/round-el/blob/master/src/test/resources/el.txt[表达式语言用例]
+
+== 特性
+
+- 预定义/扩展/中缀函数
+- 包调用
+- 类型模糊、受限的类型系统和模块系统
+
+== 规划
+
+- 自定义函数
+- 易用的类型系统和模块系统
+- 内置对向量和矩阵的支持

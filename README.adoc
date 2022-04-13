@@ -1,0 +1,19 @@
+== Introduce
+
+Other languages: https://github.com/round-lang/round-el/blob/master/README_zh.adoc[中文]
+
+> See https://github.com/round-lang/round-el/blob/master/src/test/java/org/dreamcat/round/el/ElEngineTest.java[tests] to know how to use it
+
+> A https://github.com/round-lang/round-el/blob/master/src/test/resources/el.txt[demo] for the expression language
+
+== Features
+
+- Predefined/Extended/Infix Functions
+- Package Invocation
+- Type Fuzzy and Limited Type System & Module System
+
+== Planning
+
+- Custom Functions
+- Easy-to-use Type System & Module System
+- Built-in Vector/Matrix
