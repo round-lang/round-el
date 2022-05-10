@@ -9,7 +9,7 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 import org.dreamcat.common.io.ClassPathUtil;
 import org.dreamcat.common.util.NumberUtil;
-import org.dreamcat.common.x.jackson.JsonUtil;
+import org.dreamcat.common.x.json.JsonUtil;
 
 /**
  * @author Jerry Will
@@ -35,7 +35,7 @@ public class TestBase {
     }
 
     public void evaluate(String expression, Consumer<ElEngine> configurator, Object expect, Object... input) {
-        ElContext context = ElContext.createContext();
+        ElContext context = ElContext.of();
         int size = input.length;
         for (int i = 0; i < size; i += 2) {
             context.set(input[i].toString(), input[i + 1]);

@@ -37,8 +37,8 @@ dependencies {
     testImplementation "org.openjdk.jmh:jmh-core:$jmhVersion"
     testAnnotationProcessor "org.openjdk.jmh:jmh-generator-annprocess:$jmhVersion"
 
-    implementation "org.dreamcat:common-core:0.2.1"
-    implementation "org.dreamcat:common-x:0.2.1"
+    implementation "org.dreamcat:common-core:0.3"
+    implementation "org.dreamcat:common-x:0.3"
 
     // https://mvnrepository.com/artifact/org.apache.commons/commons-jexl3
     testImplementation "org.apache.commons:commons-jexl3:3.2.1"

@@ -2,7 +2,6 @@ package org.dreamcat.round.el;
 
 import lombok.Getter;
 import lombok.Setter;
-import lombok.extern.slf4j.Slf4j;
 import org.dreamcat.round.el.lex.LexSettings;
 
 /**
@@ -11,7 +10,6 @@ import org.dreamcat.round.el.lex.LexSettings;
  */
 @Getter
 @Setter
-@Slf4j
 public class ElSettings extends LexSettings {
 
     protected boolean enableExtendedFunction = false;

@@ -33,7 +33,7 @@ public interface ElEngine {
      * @return result
      */
     default Object evaluate(String expression) {
-        return evaluate(expression, ElContext.createContext());
+        return evaluate(expression, ElContext.of());
     }
 
     default Object evaluate(String expression, ElContext context) {

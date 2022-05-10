@@ -2,6 +2,8 @@
 
 其他语言: https://github.com/round-lang/round-el/blob/master/README_.adoc[English]
 
+``round-el``是一款高性能的脚本引擎，目前使用java实现。其语法基本上兼容java，除此以外，还支持更强大的类型系统、动态类型、鸭子类型以及科学计算等，并且与任何 Java 类或库无缝集成。
+
 > https://github.com/round-lang/round-el/blob/master/src/test/java/org/dreamcat/round/el/ElEngineTest.java[测试用例]
 
 > https://github.com/round-lang/round-el/blob/master/src/test/resources/el.txt[表达式语言用例]
@@ -16,4 +18,4 @@
 
 - 自定义函数
 - 易用的类型系统和模块系统
-- 内置对向量和矩阵的支持
+- 内置对向量和矩阵计算的支持

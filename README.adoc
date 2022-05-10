@@ -2,6 +2,11 @@
 
 Other languages: https://github.com/round-lang/round-el/blob/master/README_zh.adoc[中文]
 
+`round-el` is a high-performance scripting engine, implemented in java for now.
+The syntax is basically compatible with java.
+In addition, it supports a more powerful type system, dynamic typing, duck typing, scientific computing, etc.
+And integrates seamlessly with any Java class or library.
+
 > See https://github.com/round-lang/round-el/blob/master/src/test/java/org/dreamcat/round/el/ElEngineTest.java[tests] to know how to use it
 
 > A https://github.com/round-lang/round-el/blob/master/src/test/resources/el.txt[demo] for the expression language
@@ -16,4 +21,4 @@ Other languages: https://github.com/round-lang/round-el/blob/master/README_zh.ad
 
 - Custom Functions
 - Easy-to-use Type System & Module System
-- Built-in Vector/Matrix
+- Built-in Vector/Matrix calculations

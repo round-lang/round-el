@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test;
  */
 class OperatorNodeUnaryEdgeTest extends NodeTest {
 
-    static final ElContext context1 = ElContext.createContext();
+    static final ElContext context1 = ElContext.of();
 
     @BeforeAll
     static void init() {

@@ -46,7 +46,7 @@ class SimpleElEngine implements ElEngine {
     public Object getObject(String name) {
         Object value = objs.get(name);
         if (value == null) {
-            return ElClassUtil.findClass(name);
+            return ElClassUtil.findBuiltinClass(name);
         }
         return value;
     }

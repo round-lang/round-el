@@ -9,7 +9,7 @@ public final class ElClassUtil {
     private ElClassUtil() {
     }
 
-    public static Class<?> findClass(String className) {
+    public static Class<?> findBuiltinClass(String className) {
         try {
             return Class.forName("java.lang." + className);
         } catch (ClassNotFoundException ignore) { // nop

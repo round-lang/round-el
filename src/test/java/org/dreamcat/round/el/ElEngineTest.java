@@ -53,7 +53,7 @@ class ElEngineTest {
         // compile
         ElString elString = engine.compile(expression);
         // runtime
-        ElContext context = ElContext.createContext();
+        ElContext context = ElContext.of();
         context.set("s", "2021-05-25 00:00:00");
         context.set("dict", Collections.singletonMap("awe", "some"));
         context.set("log", log);

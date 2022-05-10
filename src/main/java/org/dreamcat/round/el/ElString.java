@@ -1,10 +1,12 @@
 package org.dreamcat.round.el;
 
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 /**
  * Create by tuke on 2020/10/26
  */
+@SuppressWarnings("unchecked")
 public interface ElString {
 
     /**
@@ -27,7 +29,7 @@ public interface ElString {
     }
 
     default Object evaluate() {
-        return evaluate(ElContext.createContext());
+        return evaluate(ElContext.of());
     }
 
     /**
@@ -39,4 +41,19 @@ public interface ElString {
      */
     Object evaluate(ElContext context);
 
+    default boolean evaluateAsBool() {
+        return Objects.equals(evaluate(), true);
+    }
+
+    default boolean evaluateAsBool(ElContext context) {
+        return Objects.equals(evaluate(context), true);
+    }
+
+    default <T> T evaluateAs() {
+        return (T) evaluate();
+    }
+
+    default <T> T evaluateAs(ElContext context) {
+        return (T) evaluate(context);
+    }
 }

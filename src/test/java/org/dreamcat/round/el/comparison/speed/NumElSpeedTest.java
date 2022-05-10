@@ -216,7 +216,7 @@ class NumElSpeedTest {
 
     static final ElEngine elEngine = ElEngine.getEngine();
     static final ElString elString = elEngine.compile(expression);
-    static final ElContext elContext = ElContext.createContext();
+    static final ElContext elContext = ElContext.of();
 
     static final EvalEngine evalEngine = EvalEngine.getEngine();
     static final EvalExpression evalExpression = evalEngine.createExpression(expression);

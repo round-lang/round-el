@@ -22,9 +22,9 @@ class SimpleElTest extends TestBase {
     static final String num_expression1 = "(a + 3.16) * ((b + 3.14) / 2.73 + (b * c - a * 2) / 3.14 + 2 * a * b / c - 6)";
     static final String num_expression2 = "(a + 3.16e-9) * ((b + 3.14E7) / 2.73 + (b * c - a * 2) / 3.14 + 2 * a * b / c - 6594162598152)";
 
-    static final ElContext context1 = ElContext.createContext();
-    static final ElContext context2 = ElContext.createContext();
-    static final ElContext context3 = ElContext.createContext();
+    static final ElContext context1 = ElContext.of();
+    static final ElContext context2 = ElContext.of();
+    static final ElContext context3 = ElContext.of();
 
     @BeforeAll
     static void init() {

@@ -38,7 +38,7 @@ public class NodeTest extends TestBase {
     }
 
     public void evalNode(String expression, Consumer<ElEngine> configurator, Predicate<Object> test, Object... input) {
-        ElContext context = ElContext.createContext();
+        ElContext context = ElContext.of();
         int size = input.length;
         for (int i = 0; i < size; i += 2) {
             context.set(input[i].toString(), input[i + 1]);
