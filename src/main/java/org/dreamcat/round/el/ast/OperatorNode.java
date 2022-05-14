@@ -32,14 +32,14 @@ public class OperatorNode extends TreeNode {
         int size = children.size();
         StringBuilder s = new StringBuilder();
         if (size == 1) {
-            s.append(operator.getRawToken());
+            s.append(operator.getRaw());
             s.append(" ").append(children.get(0));
         } else if (size == 2) {
             s.append(children.get(0)).append(" ");
-            s.append(operator.getRawToken());
+            s.append(operator.getRaw());
             s.append(" ").append(children.get(1));
         } else {
-            s.append(operator.getRawToken());
+            s.append(operator.getRaw());
         }
         return s.toString();
     }

@@ -8,7 +8,7 @@ public interface Token {
 
     Type getType();
 
-    String getRawToken();
+    String getRaw();
 
     default boolean isIdentifier() {
         return false;

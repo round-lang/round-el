@@ -16,6 +16,8 @@ public enum KeywordToken implements Token {
     CLASS("class"),
     CATCH("catch"),
     CONTINUE("continue"),
+    END("end"),
+    ELIF("elif"),
     ELSE("else"),
     FOR("for"),
     FALSE("false"),
@@ -62,7 +64,7 @@ public enum KeywordToken implements Token {
     }
 
     @Override
-    public String getRawToken() {
+    public String getRaw() {
         return keyword;
     }
 

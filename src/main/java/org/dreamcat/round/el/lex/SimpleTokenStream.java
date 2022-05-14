@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import lombok.Setter;
 import org.dreamcat.round.el.exception.CompileException;
 
 /**
@@ -19,6 +20,10 @@ public class SimpleTokenStream implements TokenStream {
     protected final List<TokenInfo> tokenInfos = new ArrayList<>();
     protected int offset = -1;
     protected int size;
+    @Setter
+    protected int firstLineNo = 1;
+    @Setter
+    protected int firstCol = 1;
 
     public SimpleTokenStream copy() {
         SimpleTokenStream stream = new SimpleTokenStream(expression, settings);
@@ -29,7 +34,7 @@ public class SimpleTokenStream implements TokenStream {
     }
 
     // only invoke it in a lexer
-    void add(TokenInfo tokenInfo) {
+    public void add(TokenInfo tokenInfo) {
         tokenInfos.add(tokenInfo);
         size++;
     }
@@ -105,7 +110,7 @@ public class SimpleTokenStream implements TokenStream {
             // no sample
             throw new CompileException(String.format(
                     "You has wrong syntax in your %s, at line %d col %d",
-                    settings.getExpressionName(), tokenInfo.getLine(), tokenInfo.getCol()));
+                    settings.getName(), tokenInfo.getLine(), tokenInfo.getCol()));
         }
         if (end >= size) {
             start -= (end - size);
@@ -119,7 +124,7 @@ public class SimpleTokenStream implements TokenStream {
 
         throw new CompileException(String.format(
                 "You has wrong syntax in your %s, at line %d col %d near by: %s",
-                settings.getExpressionName(), tokenInfo.getLine(), tokenInfo.getCol(),
+                settings.getName(), tokenInfo.getLine(), tokenInfo.getCol(),
                 expression.substring(start, end)));
     }
 
@@ -137,8 +142,8 @@ public class SimpleTokenStream implements TokenStream {
             tokenInfo.line = prevTokenInfo.line;
             tokenInfo.col = prevTokenInfo.col;
         } else {
-            tokenInfo.line = 1;
-            tokenInfo.col = 1;
+            tokenInfo.line = firstLineNo;
+            tokenInfo.col = firstCol;
         }
 
         int start = tokenInfo.getStart();

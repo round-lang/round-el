@@ -37,21 +37,21 @@ public enum OperatorToken implements Token {
     DOUBLE_COLON("::", 1),
     ;
 
-    final String rawToken;
+    final String raw;
     final String name; // as function name
     final int priority;
     final boolean lefty;
 
-    OperatorToken(String rawToken, int priority, boolean lefty) {
-        this(rawToken, null, priority, lefty);
+    OperatorToken(String raw, int priority, boolean lefty) {
+        this(raw, null, priority, lefty);
     }
 
-    OperatorToken(String rawToken, String name, int priority) {
-        this(rawToken, name, priority, true);
+    OperatorToken(String raw, String name, int priority) {
+        this(raw, name, priority, true);
     }
 
-    OperatorToken(String rawToken, int priority) {
-        this(rawToken, null, priority);
+    OperatorToken(String raw, int priority) {
+        this(raw, null, priority);
     }
 
     @Override

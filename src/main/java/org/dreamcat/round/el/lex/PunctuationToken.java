@@ -22,7 +22,7 @@ public enum PunctuationToken implements Token {
     RIGHT_BRACE("}"),
     ;
 
-    final String rawToken;
+    final String raw;
 
     @Override
     public Type getType() {
@@ -77,7 +77,7 @@ public enum PunctuationToken implements Token {
 
     static {
         for (PunctuationToken value : values()) {
-            valueMap.put(value.rawToken.charAt(0), value);
+            valueMap.put(value.raw.charAt(0), value);
         }
     }
 }

@@ -12,10 +12,10 @@ import lombok.RequiredArgsConstructor;
 class AbstractToken implements Token {
 
     final Type type;
-    final String rawToken;
+    final String raw;
 
     @Override
     public String toString() {
-        return this.getRawToken();
+        return this.getRaw();
     }
 }

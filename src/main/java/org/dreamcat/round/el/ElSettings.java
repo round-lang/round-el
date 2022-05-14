@@ -2,6 +2,7 @@ package org.dreamcat.round.el;
 
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 import org.dreamcat.round.el.lex.LexSettings;
 
 /**
@@ -10,6 +11,7 @@ import org.dreamcat.round.el.lex.LexSettings;
  */
 @Getter
 @Setter
+@Accessors(chain = true)
 public class ElSettings extends LexSettings {
 
     protected boolean enableExtendedFunction = false;

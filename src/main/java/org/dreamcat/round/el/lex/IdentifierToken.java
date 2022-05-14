@@ -19,7 +19,7 @@ public class IdentifierToken extends AbstractToken {
 
     @Override
     public String getIdentifier() {
-        return rawToken;
+        return raw;
     }
 
     @Override

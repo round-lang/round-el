@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.dreamcat.common.Pair;
 import org.dreamcat.common.text.NumberSearcher;
 import org.dreamcat.common.text.StringSearcher;
@@ -19,7 +18,6 @@ import org.dreamcat.round.el.exception.CompileException;
  * @author Jerry Will
  * @since 2021-07-04
  */
-@Slf4j
 @RequiredArgsConstructor
 public final class Lexer {
 
@@ -105,16 +103,7 @@ public final class Lexer {
                         num = new BigInteger(value);
                     }
                 } else {
-                    if (pair.second()) {
-                        num = Double.parseDouble(value);
-                    } else {
-                        long n = Long.parseLong(value);
-                        if (NumberUtil.isIntRange(n)) {
-                            num = (int) n;
-                        } else {
-                            num = n;
-                        }
-                    }
+                    num = NumberUtil.parseNumber(value, pair.second());
                 }
                 NumberToken token = numberCache.computeIfAbsent(
                         value, it -> new NumberToken(num, value));
@@ -174,6 +163,6 @@ public final class Lexer {
         }
         throw new CompileException(String.format(
                 "You has invalid token in your %s, near at line %d col %d",
-                settings.getExpressionName(), line, col));
+                settings.getName(), line, col));
     }
 }

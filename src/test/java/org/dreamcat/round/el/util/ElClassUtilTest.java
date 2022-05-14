@@ -1,5 +1,6 @@
 package org.dreamcat.round.el.util;
 
+import java.io.IOException;
 import org.dreamcat.common.util.ReflectUtil;
 import org.junit.jupiter.api.Test;
 
@@ -10,8 +11,8 @@ import org.junit.jupiter.api.Test;
 class ElClassUtilTest {
 
     @Test
-    void test() {
-        ReflectUtil.retrievePackage("org.dreamcat.round.el")
+    void test() throws IOException {
+        ReflectUtil.retrieveSamePackage("org.dreamcat.round.el")
                 .forEach(System.out::println);
     }
 }

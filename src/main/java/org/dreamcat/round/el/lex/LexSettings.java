@@ -4,6 +4,7 @@ import java.util.Collections;
 import java.util.List;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.experimental.Accessors;
 import org.dreamcat.common.Pair;
 
 /**
@@ -12,12 +13,13 @@ import org.dreamcat.common.Pair;
  */
 @Getter
 @Setter
+@Accessors(chain = true)
 public class LexSettings {
 
     /**
      * use in help information
      */
-    protected String expressionName = "expression";
+    protected String name = "expression";
     /**
      * identify the number token as {@link java.math.BigDecimal} or {@link java.math.BigInteger}
      */
