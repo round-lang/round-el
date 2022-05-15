@@ -6,22 +6,35 @@ package org.dreamcat.round.el.lex;
  */
 public interface TokenStream {
 
-    // get current token info: offset
-    TokenInfo getTokenInfo();
-
-    // get current token: offset
-    Token get();
-
-    // has next
+    /**
+     * has next
+     */
     boolean hasNext();
 
-    // get next token: ++offset
+    /**
+     * get next token: ++offset
+     */
     Token next();
 
-    // get previous token: --offset
-    void previous();
+    /**
+     * get previous token: --offset
+     */
+    Token previous();
 
-    TokenStream nextUntil(Token delimiterToken);
+    /**
+     * get current token: offset
+     * must call {@link #next()} first
+     */
+    Token get();
+
+    default TokenInfo getTokenInfo() {
+        throw new UnsupportedOperationException();
+    }
+
+    /**
+     * reset the stream
+     */
+    void reset();
 
     // throws an exception at current offset
     <T> T throwWrongSyntax();

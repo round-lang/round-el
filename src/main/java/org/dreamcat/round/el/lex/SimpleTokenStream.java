@@ -39,23 +39,6 @@ public class SimpleTokenStream implements TokenStream {
         size++;
     }
 
-    public boolean isEmpty() {
-        return size == 0;
-    }
-
-    // ---- ---- ---- ----    ---- ---- ---- ----    ---- ---- ---- ----
-
-    @Override
-    public TokenInfo getTokenInfo() {
-        if (offset >= size || offset < 0) return throwWrongSyntax();
-        return computeTokenInfo();
-    }
-
-    @Override
-    public Token get() {
-        return getTokenInfo().getToken();
-    }
-
     // ---- ---- ---- ----    ---- ---- ---- ----    ---- ---- ---- ----
 
     @Override
@@ -67,32 +50,32 @@ public class SimpleTokenStream implements TokenStream {
     public Token next() {
         if (hasNext()) {
             return tokenInfos.get(++offset).getToken();
-        } else {
-            return throwWrongSyntax();
-        }
+        } else return throwWrongSyntax();
     }
 
     @Override
-    public void previous() {
+    public Token previous() {
         if (offset > -1) {
-            --offset;
-        } else {
-            throwWrongSyntax();
-        }
+            return tokenInfos.get(--offset).getToken();
+        } else return throwWrongSyntax();
     }
 
     @Override
-    public TokenStream nextUntil(Token delimiterToken) {
-        SimpleTokenStream stream = new SimpleTokenStream(
-                expression, settings);
-        while (hasNext()) {
-            Token token = next();
-            if (token.equals(delimiterToken)) {
-                break;
-            }
-            stream.add(getTokenInfo());
-        }
-        return stream;
+    public Token get() {
+        if (offset >= 0 && offset < size) {
+            return tokenInfos.get(offset).getToken();
+        } else return throwWrongSyntax();
+    }
+
+    @Override
+    public TokenInfo getTokenInfo() {
+        if (offset >= size || offset < 0) return throwWrongSyntax();
+        return computeTokenInfo();
+    }
+
+    @Override
+    public void reset() {
+        offset = -1;
     }
 
     // ---- ---- ---- ----    ---- ---- ---- ----    ---- ---- ---- ----
