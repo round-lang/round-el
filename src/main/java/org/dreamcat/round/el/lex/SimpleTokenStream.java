@@ -55,9 +55,11 @@ public class SimpleTokenStream implements TokenStream {
 
     @Override
     public Token previous() {
-        if (offset > -1) {
+        if (offset > 0) {
             return tokenInfos.get(--offset).getToken();
-        } else return throwWrongSyntax();
+        } else if (--offset < -1) {
+            return throwWrongSyntax();
+        } else return null; // offset == -1
     }
 
     @Override

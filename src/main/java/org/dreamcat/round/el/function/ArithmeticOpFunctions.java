@@ -34,6 +34,7 @@ public class ArithmeticOpFunctions {
     public static final ElFunction ADD_OP = newOp("+", NumberUtil::add, POS_OP);
     public static final ElFunction SUB_OP = newOp("-", NumberUtil::subtract, NEG_OP);
     public static final ElFunction MUL_OP = newOp("*", NumberUtil::multiply);
+    public static final ElFunction DOUBLE_MUL_OP = newOp("**", NumberUtil::pow);
     public static final ElFunction REM_OP = newOp("%", NumberUtil::remainder);
 
     static ElFunction newOp(String keyword, BiFunction<Number, Number, Object> op) {

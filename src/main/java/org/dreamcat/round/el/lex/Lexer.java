@@ -28,7 +28,7 @@ public final class Lexer {
     public TokenStream lex(String expression) {
         SimpleTokenStream stream = new SimpleTokenStream(expression, settings);
 
-        int size = expression.length();
+        int size = expression.length(), j;
         outer:
         for (int i = 0; i < size; i++) {
             char c = expression.charAt(i);
@@ -41,15 +41,12 @@ public final class Lexer {
                     char first = singleComment.charAt(0);
                     int width = singleComment.length();
                     if (c == first && i < size - width && expression.substring(i, i + width).equals(singleComment)) {
-                        int j;
                         for (j = i + width; j < size && (c = expression.charAt(j)) != '\n'; j++) ;
                         CommentToken token = CommentToken.of(expression.substring(i, j), singleComment);
                         stream.add(SimpleTokenInfo.of(token, i, j));
                         i = j;
-                        // found \n
-                        if (c == '\n') continue outer;
-                            // found EOF
-                        else break outer;
+                        if (c == '\n') continue outer; // found \n
+                        else break outer; // found EOF
                     }
                 }
             }
@@ -61,7 +58,6 @@ public final class Lexer {
                     char first = start.charAt(0), last = end.charAt(0);
                     int startWidth = start.length(), endWidth = end.length(), lastEnd = size - endWidth;
                     if (c == first && i < size - startWidth && expression.substring(i, i + startWidth).equals(start)) {
-                        int j;
                         for (j = i + startWidth; j <= lastEnd; j++) {
                             if (expression.charAt(j) == last && expression.substring(j, j + endWidth).equals(end)) {
                                 CommentToken token = CommentToken.of(expression.substring(i, j += endWidth), start,

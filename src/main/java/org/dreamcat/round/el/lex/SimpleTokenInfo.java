@@ -1,5 +1,6 @@
 package org.dreamcat.round.el.lex;
 
+import java.util.Objects;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
@@ -20,5 +21,10 @@ public class SimpleTokenInfo implements TokenInfo {
     public static SimpleTokenInfo of(
             Token token, int start, int end) {
         return new SimpleTokenInfo(token, start, end);
+    }
+
+    @Override
+    public String toString() {
+        return token.getClass().getSimpleName() + "@" + token;
     }
 }

@@ -28,6 +28,7 @@ public enum OperatorToken implements Token {
     ADD("+", 4),
     SUB("-", 4),
     MUL("*", 3),
+    DOUBLE_MUL("**", 3),
     DIV("/", 3),
     REM("%", 3),
     NOT("!", "not", 2),
@@ -98,7 +99,11 @@ public enum OperatorToken implements Token {
         } else if (c == '-') {
             return Pair.of(SUB, offset + 1);
         } else if (c == '*') {
-            return Pair.of(MUL, offset + 1);
+            if (offset < size - 1 && sql.charAt(offset + 1) == '*') {
+                return Pair.of(DOUBLE_MUL, offset + 2);
+            } else {
+                return Pair.of(MUL, offset + 1);
+            }
         } else if (c == '/') {
             return Pair.of(DIV, offset + 1);
         } else if (c == '%') {

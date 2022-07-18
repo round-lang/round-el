@@ -6,6 +6,11 @@ import org.dreamcat.round.el.ElEngine;
 import org.dreamcat.round.el.exception.ExecuteException;
 
 /**
+ * import a.b.c;
+ * import a.b.c as x;
+ * import a.b.*;
+ * import {c, d as e} from a.b;
+ *
  * @author Jerry Will
  * @version 2021-08-15
  */
@@ -13,6 +18,7 @@ import org.dreamcat.round.el.exception.ExecuteException;
 public class ImportNode extends ElNode {
 
     public final Class<?> clazz;
+    public String as;
 
     public static ImportNode valueOf(String className) {
         Class<?> clazz;

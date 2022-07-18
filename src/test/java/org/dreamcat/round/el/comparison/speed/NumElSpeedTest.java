@@ -102,7 +102,7 @@ class NumElSpeedTest {
         }
 
         try {
-            Plotly.plotAndOpenStack(x, y, n -> n / 1000_000., stack);
+            Plotly.plotAndOpenTimeit(x, y, n -> n / 1000_000., stack);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -139,7 +139,7 @@ class NumElSpeedTest {
         }
 
         try {
-            Plotly.plotAndOpenStack(x, y, n -> n / 1000_000., stack);
+            Plotly.plotAndOpenTimeit(x, y, n -> n / 1000_000., stack);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -176,7 +176,7 @@ class NumElSpeedTest {
         }
 
         try {
-            Plotly.plotAndOpenStack(x, y, n -> n / 1000_000., stack);
+            Plotly.plotAndOpenTimeit(x, y, n -> n / 1000_000., stack);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

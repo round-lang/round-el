@@ -1,6 +1,7 @@
 package org.dreamcat.round.el.ast;
 
 import java.util.Objects;
+import org.dreamcat.common.util.NumberUtil;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -57,5 +58,18 @@ class ChainNodeTest extends NodeTest {
         evalNode("import java.text.SimpleDateFormat;"
                         + "SimpleDateFormat(\"yyyy-MM-dd HH:mm:ss\").parse(s).getTime()",
                 0L, "s", s);
+    }
+
+    @Test
+    void test8() {
+        evalNode("pow(2., 16); 2.0 ** 16", elEngine -> {
+            elEngine.setFunction("pow", (Object[] args) -> {
+                if (args.length == 2) {
+                    Number arg1 = (Number)  args[0];
+                    Number arg2 = (Number)  args[0];
+                    return Math.pow(arg1.doubleValue(), arg2.doubleValue());
+                } else throw new RuntimeException("no impl");
+            });
+        }, 65536.);
     }
 }
