@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.dreamcat.round.el.ElContext;
 import org.dreamcat.round.el.ElEngine;
-import org.dreamcat.round.el.lex.OperatorToken;
+import org.dreamcat.round.lex.OperatorToken;
 
 /**
  * @author Jerry Will
@@ -15,7 +15,7 @@ public class BracketNode extends ElNode {
     public List<ElNode> vector;
     public List<List<ElNode>> matrix;
     // transient
-    public List<ElNode> currentRow;
+    public transient List<ElNode> currentRow;
 
     BracketNode() {
         vector = new ArrayList<>();

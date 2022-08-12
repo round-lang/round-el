@@ -1,9 +1,9 @@
 package org.dreamcat.round.el.ast;
 
-import org.dreamcat.common.util.CollectionUtil;
-import org.dreamcat.round.el.lex.PunctuationToken;
-import org.dreamcat.round.el.lex.Token;
-import org.dreamcat.round.el.lex.TokenStream;
+import org.dreamcat.common.util.ListUtil;
+import org.dreamcat.round.lex.PunctuationToken;
+import org.dreamcat.round.lex.Token;
+import org.dreamcat.round.lex.TokenStream;
 
 /**
  * @author Jerry Will
@@ -23,7 +23,7 @@ public interface ChainAnalyzer {
                     if (!PunctuationToken.RIGHT_PARENTHESIS.equals(stream.next())) {
                         return stream.throwWrongSyntax();
                     }
-                    CollectionUtil.last(root.children).addChild(node);
+                    ListUtil.getLast(root.children).addChild(node);
                 } else if (token.isDot()) {
                     needDot = false;
                 } else {

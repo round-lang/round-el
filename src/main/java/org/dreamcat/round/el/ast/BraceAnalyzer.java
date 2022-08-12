@@ -1,10 +1,10 @@
 package org.dreamcat.round.el.ast;
 
-import org.dreamcat.round.el.lex.CommentToken;
-import org.dreamcat.round.el.lex.KeywordToken;
-import org.dreamcat.round.el.lex.PunctuationToken;
-import org.dreamcat.round.el.lex.Token;
-import org.dreamcat.round.el.lex.TokenStream;
+import org.dreamcat.round.el.ElLexer;
+import org.dreamcat.round.lex.CommentToken;
+import org.dreamcat.round.lex.PunctuationToken;
+import org.dreamcat.round.lex.Token;
+import org.dreamcat.round.lex.TokenStream;
 
 /**
  * a thread-unsafe impl
@@ -19,13 +19,13 @@ public interface BraceAnalyzer {
         Token token;
         while (stream.hasNext()) {
             token = stream.next();
-            if (KeywordToken.IF.equals(token)) {
+            if (ElLexer.IF.equals(token)) {
                 root.addChild(analyseIf(stream));
-            } else if (KeywordToken.WHILE.equals(token)) {
+            } else if (ElLexer.WHILE.equals(token)) {
                 root.addChild(analyseWhile(stream));
-            } else if (KeywordToken.FOR.equals(token)) {
+            } else if (ElLexer.FOR.equals(token)) {
                 root.addChild(analyseFor(stream));
-            } else if (KeywordToken.IMPORT.equals(token)) {
+            } else if (ElLexer.IMPORT.equals(token)) {
                 root.addChild(InstructionAnalyzer.analyseImport(stream));
             } else if (PunctuationToken.RIGHT_BRACE.equals(token)) {
                 stream.previous();
@@ -66,12 +66,12 @@ public interface BraceAnalyzer {
                 (!needBrace && !PunctuationToken.SEMICOLON.equals(token))) {
             return stream.throwWrongSyntax();
         }
-        if (!KeywordToken.ELSE.equals(stream.next())) {
+        if (!ElLexer.ELSE.equals(stream.next())) {
             stream.previous();
             return node;
         }
 
-        if (KeywordToken.IF.equals(stream.next())) {
+        if (ElLexer.IF.equals(stream.next())) {
             node.elsePart = analyseIf(stream);
             needBrace = false;
         } else if (PunctuationToken.LEFT_BRACE.equals(stream.get())) {

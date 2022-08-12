@@ -2,7 +2,7 @@ package org.dreamcat.round.el;
 
 import java.util.function.BiFunction;
 import org.dreamcat.round.el.function.ElFunction;
-import org.dreamcat.round.el.lex.OperatorToken;
+import org.dreamcat.round.lex.OperatorToken;
 
 /**
  * Create by tuke on 2020/10/26
@@ -42,7 +42,7 @@ public interface ElEngine {
 
     // ==== ==== ==== ====    ==== ==== ==== ====    ==== ==== ==== ====
 
-    ElSettings getSettings();
+    ElConfig getSettings();
 
     // ==== ==== ==== ====    ==== ==== ==== ====    ==== ==== ==== ====
 

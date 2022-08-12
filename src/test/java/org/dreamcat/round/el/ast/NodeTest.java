@@ -4,10 +4,11 @@ import java.util.Objects;
 import java.util.function.BiPredicate;
 import java.util.function.Consumer;
 import java.util.function.Predicate;
+import org.dreamcat.common.util.ArrayUtil;
 import org.dreamcat.common.util.NumberUtil;
 import org.dreamcat.round.el.ElContext;
 import org.dreamcat.round.el.ElEngine;
-import org.dreamcat.round.el.ElSettings;
+import org.dreamcat.round.el.ElConfig;
 import org.dreamcat.round.el.TestBase;
 import org.dreamcat.round.el.lex.Lexer;
 
@@ -59,7 +60,7 @@ public class NodeTest extends TestBase {
 
     BraceNode analyse(String expression) {
         System.out.printf("expression \t = \t %s %n", expression);
-        Lexer lexer = new Lexer(new ElSettings());
+        Lexer lexer = new Lexer(new ElConfig());
         return BraceAnalyzer.analyse(lexer.lex(expression));
     }
 
@@ -104,6 +105,9 @@ public class NodeTest extends TestBase {
         }
         if (Objects.equals(result, expect)) return true;
         else {
+            if (result != null && result.getClass().isArray()) {
+                result = ArrayUtil.toString(result);
+            }
             System.err.printf("result \t = \t %s, expect \t = \t %s %n", result, expect);
             return false;
         }

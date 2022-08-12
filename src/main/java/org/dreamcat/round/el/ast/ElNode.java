@@ -6,11 +6,11 @@ import java.util.Collections;
 import java.util.List;
 import org.dreamcat.round.el.ElContext;
 import org.dreamcat.round.el.ElEngine;
+import org.dreamcat.round.el.ElLexer;
 import org.dreamcat.round.el.exception.BreakException;
 import org.dreamcat.round.el.exception.ContinueException;
-import org.dreamcat.round.el.lex.KeywordToken;
-import org.dreamcat.round.el.lex.OperatorToken;
-import org.dreamcat.round.el.lex.TokenStream;
+import org.dreamcat.round.lex.OperatorToken;
+import org.dreamcat.round.lex.TokenStream;
 
 /**
  * @author Jerry Will
@@ -47,9 +47,9 @@ public abstract class ElNode {
 
     static Object evaluate(String identifier, ElContext context, ElEngine engine) {
         // control chars
-        if (KeywordToken.BREAK.is(identifier)) {
+        if (ElLexer.BREAK.is(identifier)) {
             throw new BreakException();
-        } else if (KeywordToken.CONTINUE.is(identifier)) {
+        } else if (ElLexer.CONTINUE.is(identifier)) {
             throw new ContinueException();
         }
         Object value = context.get(identifier);

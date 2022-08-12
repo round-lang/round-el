@@ -8,7 +8,7 @@ import java.util.function.BiFunction;
 import org.dreamcat.round.el.function.ElFunction;
 import org.dreamcat.round.el.function.ElFunctions;
 import org.dreamcat.round.el.function.MethodFunction;
-import org.dreamcat.round.el.lex.OperatorToken;
+import org.dreamcat.round.lex.OperatorToken;
 import org.dreamcat.round.el.util.ElClassUtil;
 
 /**
@@ -18,7 +18,7 @@ import org.dreamcat.round.el.util.ElClassUtil;
 @SuppressWarnings({"unchecked"})
 class SimpleElEngine implements ElEngine {
 
-    ElSettings settings = new ElSettings();
+    ElConfig settings = new ElConfig();
 
     final Map<String, Object> objs = new ConcurrentHashMap<>();
     final Map<OperatorToken, ElFunction> ops = new ConcurrentHashMap<>(ElFunctions.OPERATORS);
@@ -36,7 +36,7 @@ class SimpleElEngine implements ElEngine {
     // ==== ==== ==== ====    ==== ==== ==== ====    ==== ==== ==== ====
 
     @Override
-    public ElSettings getSettings() {
+    public ElConfig getSettings() {
         return settings;
     }
 

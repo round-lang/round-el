@@ -2,7 +2,7 @@
 import java.text.SimpleDateFormat;
 
 // assign
-ts1 = System.nanoTime();
+ts1 = System.nanoTime() ** 2;
 ts2 = SimpleDateFormat("yyyy-MM-dd HH:mm:ss").parse(s).getTime();
 tss = [ ts1, ts2 ];
 

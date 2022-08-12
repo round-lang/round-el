@@ -1,5 +1,7 @@
 package org.dreamcat.round.el.ast;
 
+import static org.dreamcat.round.el.ElLexer.RETURN;
+
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.dreamcat.round.el.ElContext;
@@ -9,8 +11,7 @@ import org.dreamcat.round.el.exception.ReturnException;
 import org.dreamcat.round.el.function.BracketFunction;
 import org.dreamcat.round.el.function.ConstructorFunction;
 import org.dreamcat.round.el.function.ElFunction;
-import org.dreamcat.round.el.lex.KeywordToken;
-import org.dreamcat.round.el.lex.OperatorToken;
+import org.dreamcat.round.lex.OperatorToken;
 
 /**
  * @author Jerry Will
@@ -65,7 +66,7 @@ public class IdentifierNode extends TreeNode {
             return evaluate(identifier, context, engine);
         }
 
-        if (KeywordToken.RETURN.is(identifier)) {
+        if (RETURN.is(identifier)) {
             Object returnValue = children.get(0).evaluate(context, engine);
             throw new ReturnException(returnValue);
         }

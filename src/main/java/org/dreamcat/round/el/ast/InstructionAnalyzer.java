@@ -1,12 +1,13 @@
 package org.dreamcat.round.el.ast;
 
+import static org.dreamcat.round.el.ElLexer.RETURN;
+
 import java.util.ArrayList;
 import java.util.List;
 import org.dreamcat.round.el.exception.CompileException;
-import org.dreamcat.round.el.lex.KeywordToken;
-import org.dreamcat.round.el.lex.PunctuationToken;
-import org.dreamcat.round.el.lex.Token;
-import org.dreamcat.round.el.lex.TokenStream;
+import org.dreamcat.round.lex.PunctuationToken;
+import org.dreamcat.round.lex.Token;
+import org.dreamcat.round.lex.TokenStream;
 
 /**
  * @author Jerry Will
@@ -36,7 +37,7 @@ public interface InstructionAnalyzer {
     }
 
     static IdentifierNode analyseReturn(TokenStream tokens) {
-        IdentifierNode returnNode = new IdentifierNode(KeywordToken.RETURN.getIdentifier());
+        IdentifierNode returnNode = new IdentifierNode(RETURN.getIdentifier());
         ElNode value = SnippetAnalyzer.analyse(tokens);
         returnNode.addChild(value);
         return returnNode;

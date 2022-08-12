@@ -1,9 +1,10 @@
 package org.dreamcat.round.el.ast;
 
-import org.dreamcat.round.el.lex.KeywordToken;
-import org.dreamcat.round.el.lex.OperatorToken;
-import org.dreamcat.round.el.lex.Token;
-import org.dreamcat.round.el.lex.TokenStream;
+import static org.dreamcat.round.el.ElLexer.RETURN;
+
+import org.dreamcat.round.lex.OperatorToken;
+import org.dreamcat.round.lex.Token;
+import org.dreamcat.round.lex.TokenStream;
 
 /**
  * @author Jerry Will
@@ -38,7 +39,7 @@ public interface SnippetAnalyzer {
                 }
             } else if (token.isIdentifier()) {
                 ElNode node;
-                if (KeywordToken.RETURN.equals(token)) {
+                if (RETURN.equals(token)) {
                     node = InstructionAnalyzer.analyseReturn(stream);
                 } else {
                     stream.previous();
@@ -134,12 +135,21 @@ public interface SnippetAnalyzer {
                 break;
             } else if (token.isLeftBracket()) {
                 BracketNode node = BracketAnalyzer.analyse(stream);
-
                 // case a[1..], a(1)[1], (a + b)[0], a[0][0]
                 if (current != null) {
-                    current.addChild(node);
-                    parent = current;
-                    current = node;
+                    if (current instanceof BracketNode) {
+                        BracketNode bracketNode = (BracketNode) current;
+                        if (bracketNode.matrix != null || node.matrix != null) {
+                            stream.throwWrongSyntax();
+                        }
+                        bracketNode.vector.addAll(node.vector);
+                    } else if (current instanceof IdentifierNode) {
+                        current.addChild(node);
+                    } else {
+                        current.addChild(node);
+                        parent = current;
+                        current = node;
+                    }
                 }
                 // case a + [1]
                 else if (parent != null) {

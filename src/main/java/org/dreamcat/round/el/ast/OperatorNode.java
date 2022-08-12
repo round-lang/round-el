@@ -10,7 +10,7 @@ import org.dreamcat.round.el.exception.ExecuteException;
 import org.dreamcat.round.el.function.BracketSetFunction;
 import org.dreamcat.round.el.function.DotElFunction;
 import org.dreamcat.round.el.function.ElFunction;
-import org.dreamcat.round.el.lex.OperatorToken;
+import org.dreamcat.round.lex.OperatorToken;
 
 /**
  * @author Jerry Will

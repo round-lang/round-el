@@ -4,8 +4,7 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.dreamcat.round.el.ast.ElNode;
-import org.dreamcat.round.el.lex.Lexer;
-import org.dreamcat.round.el.lex.TokenStream;
+import org.dreamcat.round.lex.TokenStream;
 
 /**
  * @author Jerry Will
@@ -20,7 +19,7 @@ class SimpleElString implements ElString {
     final ElNode root;
 
     public SimpleElString(String expression, ElEngine engine) {
-        Lexer lexer = new Lexer(engine.getSettings());
+        ElLexer lexer = new ElLexer(engine.getSettings());
         TokenStream stream = lexer.lex(expression);
 
         this.expression = expression;

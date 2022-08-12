@@ -18,9 +18,9 @@ ext {
     // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
     slf4jVersion = "1.7.36"
     // https://mvnrepository.com/artifact/org.projectlombok/lombok
-    lombokVersion = "1.18.22"
+    lombokVersion = "1.18.24"
     // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
-    junitVersion = "5.8.2"
+    junitVersion = "5.9.0"
     // https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-core
     jmhVersion = "1.35"
 }
@@ -37,13 +37,14 @@ dependencies {
     testImplementation "org.openjdk.jmh:jmh-core:$jmhVersion"
     testAnnotationProcessor "org.openjdk.jmh:jmh-generator-annprocess:$jmhVersion"
 
+    implementation "org.dreamcat:round-lex:0.1"
     implementation "org.dreamcat:common-core:0.3"
     implementation "org.dreamcat:common-x:0.3"
 
     // https://mvnrepository.com/artifact/org.apache.commons/commons-jexl3
     testImplementation "org.apache.commons:commons-jexl3:3.2.1"
     // // https://mvnrepository.com/artifact/ognl/ognl
-    testImplementation "ognl:ognl:3.3.2"
+    testImplementation 'ognl:ognl:3.3.3'
     // https://mvnrepository.com/artifact/com.alibaba/QLExpress
     testImplementation "com.alibaba:QLExpress:3.3.0"
 }

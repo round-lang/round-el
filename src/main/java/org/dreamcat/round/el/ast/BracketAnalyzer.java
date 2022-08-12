@@ -1,8 +1,8 @@
 package org.dreamcat.round.el.ast;
 
-import org.dreamcat.round.el.lex.PunctuationToken;
-import org.dreamcat.round.el.lex.Token;
-import org.dreamcat.round.el.lex.TokenStream;
+import org.dreamcat.round.lex.PunctuationToken;
+import org.dreamcat.round.lex.Token;
+import org.dreamcat.round.lex.TokenStream;
 
 /**
  * @author Jerry Will

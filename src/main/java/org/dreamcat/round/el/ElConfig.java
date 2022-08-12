@@ -3,7 +3,6 @@ package org.dreamcat.round.el;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
-import org.dreamcat.round.el.lex.LexSettings;
 
 /**
  * @author Jerry Will
@@ -12,7 +11,12 @@ import org.dreamcat.round.el.lex.LexSettings;
 @Getter
 @Setter
 @Accessors(chain = true)
-public class ElSettings extends LexSettings {
+public class ElConfig {
 
-    protected boolean enableExtendedFunction = false;
+    // compile
+    private boolean enableBigNumber = true;
+    private int sampleCharCount;
+
+    // evaluate
+    private boolean enableExtendedFunction = false;
 }
