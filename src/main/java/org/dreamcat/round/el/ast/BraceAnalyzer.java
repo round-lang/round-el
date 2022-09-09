@@ -71,10 +71,11 @@ public interface BraceAnalyzer {
             return node;
         }
 
-        if (ElLexer.IF.equals(stream.next())) {
+        token = stream.next();
+        if (ElLexer.IF.equals(token)) {
             node.elsePart = analyseIf(stream);
             needBrace = false;
-        } else if (PunctuationToken.LEFT_BRACE.equals(stream.get())) {
+        } else if (PunctuationToken.LEFT_BRACE.equals(token)) {
             node.elsePart = analyse(stream);
             needBrace = true;
         } else {

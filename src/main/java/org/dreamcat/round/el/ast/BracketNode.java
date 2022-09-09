@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import org.dreamcat.round.el.ElContext;
 import org.dreamcat.round.el.ElEngine;
-import org.dreamcat.round.lex.OperatorToken;
 
 /**
  * @author Jerry Will
@@ -23,16 +22,6 @@ public class BracketNode extends ElNode {
 
     BracketNode(List<List<ElNode>> matrix) {
         this.matrix = matrix;
-    }
-
-    @Override
-    boolean isOperator() {
-        return true;
-    }
-
-    @Override
-    OperatorToken getOperator() {
-        return OperatorToken.BRACKET;
     }
 
     @Override

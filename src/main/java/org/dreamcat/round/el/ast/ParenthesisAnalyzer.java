@@ -24,8 +24,10 @@ public interface ParenthesisAnalyzer {
                 stream.previous();
                 break;
             } else if (PunctuationToken.COMMA.equals(token)) {
-                if (PunctuationToken.RIGHT_PARENTHESIS.equals(stream.get())) {
+                if (PunctuationToken.RIGHT_PARENTHESIS.equals(stream.next())) {
                     break;
+                } else {
+                    stream.previous();
                 }
             } else {
                 return stream.throwWrongSyntax();
