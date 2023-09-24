@@ -51,6 +51,7 @@ class ElEngineTest {
         ElEngine engine = createElEngine();
         String expression = ClassPathUtil.getResourceAsString("el.txt");
         System.out.println(expression);
+        System.out.println("---- ---- ---- ----    ---- ---- ---- ----");
         // compile
         ElString elString = engine.compile(expression);
         // runtime
