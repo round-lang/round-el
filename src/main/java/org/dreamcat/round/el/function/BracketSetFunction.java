@@ -1,5 +1,6 @@
 package org.dreamcat.round.el.function;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -28,20 +29,20 @@ public enum BracketSetFunction implements ElFunction {
             offset = index.get(i++);
             if (offset < 0) {
                 if (isArray) {
-                    offset += ArrayUtil.length(object);
+                    offset += Array.getLength(object);
                 } else {
                     offset += ((List<?>) object).size();
                 }
             }
             if (i >= n) break;
             if (isArray) {
-                object = ArrayUtil.get(object, offset);
+                object = Array.get(object, offset);
             } else {
                 object = ((List<?>) object).get(offset);
             }
         }
         if (isArray) {
-            ArrayUtil.set(object, offset, value);
+            Array.set(object, offset, value);
         } else {
             ((List<Object>) object).set(offset, value);
         }

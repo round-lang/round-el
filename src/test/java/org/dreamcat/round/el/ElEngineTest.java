@@ -7,7 +7,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
-import org.dreamcat.common.io.ClassPathUtil;
+import org.dreamcat.common.util.ClassPathUtil;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -20,7 +20,7 @@ class ElEngineTest {
     private ElEngine createElEngine() {
         ElEngine engine = ElEngine.getEngine();
         // extend function
-        engine.getSettings().setEnableExtendedFunction(true);
+        engine.getSettings().enableExtendedFunction(true);
         engine.setExtendedFunction(Integer.class, "e", (obj, args) ->
                 Math.E * ((Number) obj).intValue());
         engine.setExtendedFunction(Double.class, "pow3", (obj, args) ->
@@ -50,6 +50,7 @@ class ElEngineTest {
     void test() throws IOException {
         ElEngine engine = createElEngine();
         String expression = ClassPathUtil.getResourceAsString("el.txt");
+        System.out.println(expression);
         // compile
         ElString elString = engine.compile(expression);
         // runtime

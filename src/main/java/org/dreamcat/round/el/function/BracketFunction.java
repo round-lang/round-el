@@ -1,5 +1,6 @@
 package org.dreamcat.round.el.function;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -40,7 +41,7 @@ public enum BracketFunction implements ElFunction {
                 Pair<Number, Number> p = (Pair<Number, Number>) ind;
                 int a = p.first().intValue(), b = p.second().intValue();
                 if (clazz.isArray()) {
-                    int size = ArrayUtil.length(result);
+                    int size = Array.getLength(result);
                     if (a < 0) a = size + a;
                     if (b < 0) b = size + b;
                     result = ArrayUtil.copyOfRange(result, a, b);
@@ -54,8 +55,8 @@ public enum BracketFunction implements ElFunction {
             } else if (ind instanceof Number) {
                 int a = ((Number) ind).intValue();
                 if (clazz.isArray()) {
-                    if (a < 0) a = ArrayUtil.length(result) + a;
-                    result = ArrayUtil.get(result, a);
+                    if (a < 0) a = Array.getLength(result) + a;
+                    result = Array.get(result, a);
                 } else if (result instanceof List) {
                     List<?> list = (List<?>) result;
                     if (a < 0) a = list.size() + a;

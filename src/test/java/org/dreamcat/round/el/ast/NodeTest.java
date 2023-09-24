@@ -10,7 +10,7 @@ import org.dreamcat.round.el.ElContext;
 import org.dreamcat.round.el.ElEngine;
 import org.dreamcat.round.el.ElConfig;
 import org.dreamcat.round.el.TestBase;
-import org.dreamcat.round.el.lex.Lexer;
+import org.dreamcat.round.lex.Lexer;
 
 /**
  * @author Jerry Will
@@ -60,7 +60,7 @@ public class NodeTest extends TestBase {
 
     BraceNode analyse(String expression) {
         System.out.printf("expression \t = \t %s %n", expression);
-        Lexer lexer = new Lexer(new ElConfig());
+        Lexer lexer = new Lexer();
         return BraceAnalyzer.analyse(lexer.lex(expression));
     }
 

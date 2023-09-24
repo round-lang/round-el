@@ -1,9 +1,9 @@
 package org.dreamcat.round.el.jvm;
 
 import java.io.IOException;
-import org.dreamcat.common.io.ClassPathUtil;
+import org.dreamcat.common.text.InterpolationUtil;
+import org.dreamcat.common.util.ClassPathUtil;
 import org.dreamcat.common.io.FileUtil;
-import org.dreamcat.common.text.DollarInterpolation;
 import org.dreamcat.common.util.MapUtil;
 import org.dreamcat.common.util.StringUtil;
 import org.junit.jupiter.api.Test;
@@ -18,7 +18,7 @@ class JavacTest {
     void huge_dot() throws IOException {
         String t = ClassPathUtil.getResourceAsString("huge_dot.txt");
         String code = StringUtil.repeatJoin("a", 2200, ".");
-        String s = DollarInterpolation.format(t, MapUtil.of("code", code));
+        String s = InterpolationUtil.format(t, MapUtil.of("code", code));
         FileUtil.writeFrom(System.getenv("HOME") + "/Downloads/HugeDot.java", s);
         System.out.println("javac HugeDot.java");
         System.out.println("javap -p -v HugeDot");
@@ -36,7 +36,7 @@ class JavacTest {
         sb.append("1 + a").append(StringUtil.repeat(')', size));
         String code = sb.toString();
 
-        String s = DollarInterpolation.format(t, MapUtil.of("code", code));
+        String s = InterpolationUtil.format(t, MapUtil.of("code", code));
         FileUtil.writeFrom(System.getenv("HOME") + "/Downloads/HugeBrace.java", s);
         System.out.println("javac HugeBrace.java");
         System.out.println("javap -p -v HugeBrace");

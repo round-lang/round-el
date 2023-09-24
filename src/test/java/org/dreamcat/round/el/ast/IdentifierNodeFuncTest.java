@@ -1,7 +1,7 @@
 package org.dreamcat.round.el.ast;
 
 import java.math.BigDecimal;
-import org.dreamcat.round.el.lex.OperatorToken;
+import org.dreamcat.round.lex.OperatorToken;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -13,7 +13,7 @@ class IdentifierNodeFuncTest extends NodeTest {
     @Test
     void test1() {
         evalNode("a(x).call().call() - b(b(b(y))).c(d)", engine -> {
-            engine.getSettings().setEnableExtendedFunction(true);
+            engine.getSettings().enableExtendedFunction(true);
             engine.setFunction("a", OperatorToken.SUB);
             engine.setExtendedFunction(BigDecimal.class, "call", (object, args) -> {
                 double n = Math.pow(object.doubleValue(), 0.618);

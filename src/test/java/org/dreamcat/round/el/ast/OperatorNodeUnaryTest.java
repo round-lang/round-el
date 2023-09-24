@@ -2,7 +2,7 @@ package org.dreamcat.round.el.ast;
 
 import lombok.Getter;
 import org.dreamcat.common.util.MapUtil;
-import org.dreamcat.round.el.lex.OperatorToken;
+import org.dreamcat.round.lex.OperatorToken;
 import org.junit.jupiter.api.Test;
 
 /**

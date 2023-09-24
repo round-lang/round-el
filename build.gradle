@@ -18,11 +18,11 @@ ext {
     // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
     slf4jVersion = "1.7.36"
     // https://mvnrepository.com/artifact/org.projectlombok/lombok
-    lombokVersion = "1.18.24"
+    lombokVersion = "1.18.30"
     // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
-    junitVersion = "5.9.0"
+    junitVersion = "5.10.0"
     // https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-core
-    jmhVersion = "1.35"
+    jmhVersion = "1.37"
 }
 
 dependencies {
@@ -37,9 +37,8 @@ dependencies {
     testImplementation "org.openjdk.jmh:jmh-core:$jmhVersion"
     testAnnotationProcessor "org.openjdk.jmh:jmh-generator-annprocess:$jmhVersion"
 
+    implementation "org.dreamcat:common:0.4"
     implementation "org.dreamcat:round-lex:0.1"
-    implementation "org.dreamcat:common-core:0.3"
-    implementation "org.dreamcat:common-x:0.3"
 
     // https://mvnrepository.com/artifact/org.apache.commons/commons-jexl3
     testImplementation "org.apache.commons:commons-jexl3:3.2.1"

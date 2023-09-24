@@ -10,7 +10,7 @@ import lombok.experimental.Accessors;
  */
 @Getter
 @Setter
-@Accessors(chain = true)
+@Accessors(fluent = true)
 public class ElConfig {
 
     // compile

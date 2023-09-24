@@ -5,6 +5,7 @@ import static org.dreamcat.round.el.function.ArithmeticOpFunctions.newOp;
 import java.util.Collection;
 import org.dreamcat.common.util.CollectionUtil;
 import org.dreamcat.common.util.NumberUtil;
+import org.dreamcat.common.util.ObjectUtil;
 import org.dreamcat.common.util.ReflectUtil;
 import org.dreamcat.round.el.exception.UnsupportedOpException;
 
@@ -36,7 +37,7 @@ final class CompareOpFunctions {
         } else if (ReflectUtil.isCollectionOrArray(c1) && ReflectUtil.isCollectionOrArray(c2)) {
             if (c1.isArray()) a = ReflectUtil.castAsCollection(a);
             if (c2.isArray()) b = ReflectUtil.castAsCollection(b);
-            return CollectionUtil.deepEquals((Collection<?>) a, (Collection<?>) b);
+            return ObjectUtil.deepEquals(a, b);
         }
         throw new UnsupportedOpException(
                 String.format("%s / %s", a.getClass(), b.getClass()));

@@ -70,7 +70,7 @@ public class ChainNode extends TreeNode {
 
         Class<?>[] parameterTypes = getTypes(arguments);
         ElFunction function = null;
-        if (engine.getSettings().isEnableExtendedFunction()) {
+        if (engine.getSettings().enableExtendedFunction()) {
             function = engine.getExtendedFunction(object.getClass(), functionName);
         }
         if (function == null) {

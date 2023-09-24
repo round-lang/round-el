@@ -1,6 +1,5 @@
 package org.dreamcat.round.el;
 
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import org.dreamcat.round.lex.IdentifierToken;
@@ -19,14 +18,14 @@ public class ElLexer {
     private final Lexer lexer = new Lexer(config);
 
     public ElLexer(ElConfig elConfig) {
-        config.setKeywords(keywordUMap);
+        config.addKeyword(keywords.values());
 
-        if (elConfig.isEnableBigNumber()) {
-            config.setBigNumberStrategy(BigNumberStrategy.RANGE);
+        if (elConfig.enableBigNumber()) {
+            config.bigNumberStrategy(BigNumberStrategy.RANGE);
         }
-        int sampleCharCount = elConfig.getSampleCharCount();
+        int sampleCharCount = elConfig.sampleCharCount();
         if (sampleCharCount > 0) {
-            config.setSampleCharCount(sampleCharCount);
+            config.sampleCharCount(sampleCharCount);
         }
     }
 
@@ -38,6 +37,7 @@ public class ElLexer {
         return lexer.lex(expression);
     }
 
+    private static final Map<String, IdentifierToken> keywords = new HashMap<>();
     public static final IdentifierToken AS = addKeyword("as");
     public static final IdentifierToken BREAK = addKeyword("break");
     public static final IdentifierToken CLASS = addKeyword("class");
@@ -60,13 +60,9 @@ public class ElLexer {
     public static final IdentifierToken TRUE = addKeyword("true");
     public static final IdentifierToken WHILE = addKeyword("while");
 
-    private static final Map<String, IdentifierToken> keywordMap = new HashMap<>();
-    private static final Map<String, IdentifierToken> keywordUMap =
-            Collections.unmodifiableMap(keywordMap);
-
     private static IdentifierToken addKeyword(String keyword) {
         IdentifierToken token = new IdentifierToken(keyword);
-        keywordMap.put(keyword, token);
+        keywords.put(keyword, token);
         return token;
     }
 }

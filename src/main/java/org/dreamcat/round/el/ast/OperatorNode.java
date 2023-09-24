@@ -118,7 +118,7 @@ public class OperatorNode extends TreeNode {
         // treat as a function
         ElFunction function = engine.getMethodFunction(objectClass, propertyValue);
         if (function == null) {
-            if (engine.getSettings().isEnableExtendedFunction()) {
+            if (engine.getSettings().enableExtendedFunction()) {
                 function = engine.getExtendedFunction(objectClass, propertyValue);
             }
             if (function == null) {
