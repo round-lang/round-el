@@ -15,6 +15,9 @@ public class ConstNode extends TreeNode {
 
     @Override
     public String toString() {
+        if (value instanceof CharSequence) {
+            return "\"" + value + "\"";
+        }
         return String.valueOf(value);
     }
 

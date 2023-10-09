@@ -16,7 +16,7 @@ public interface SnippetAnalyzer {
         ElNode root = null, parent = null, current = null;
         Token token;
         while (stream.hasNext()) {
-            token = stream.next();
+            token = desuger(stream.next());
             if (token.isLeftParenthesis()) {
                 ElNode node = ParenthesisAnalyzer.analyse(stream);
                 if (!stream.next().isRightParenthesis()) {
@@ -143,8 +143,6 @@ public interface SnippetAnalyzer {
                             stream.throwWrongSyntax();
                         }
                         bracketNode.vector.addAll(node.vector);
-                    } else if (current instanceof IdentifierNode) {
-                        current.addChild(node);
                     } else {
                         current.addChild(node);
                         parent = current;
@@ -164,6 +162,21 @@ public interface SnippetAnalyzer {
         }
 
         return root;
+    }
+
+    static Token desuger(Token token) {
+        // desugar and、or、not
+        if (token.isIdentifier()) {
+            String identifier = token.getIdentifier();
+            if ("and".equals(identifier)) {
+                return token.replace(OperatorToken.AND);
+            } else if ("or".equals(identifier)) {
+                return token.replace(OperatorToken.OR);
+            } else if ("not".equals(identifier)) {
+                return token.replace(OperatorToken.NOT);
+            }
+        }
+        return token;
     }
 
 }

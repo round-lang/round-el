@@ -23,6 +23,8 @@ ext {
     junitVersion = "5.10.0"
     // https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-core
     jmhVersion = "1.37"
+    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
+    jacksonVersion = '2.14.2'
 }
 
 dependencies {
@@ -40,6 +42,8 @@ dependencies {
     implementation "org.dreamcat:common:0.4"
     implementation "org.dreamcat:round-lex:0.1"
 
+    testImplementation "com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion"
+    testImplementation "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
     // https://mvnrepository.com/artifact/org.apache.commons/commons-jexl3
     testImplementation "org.apache.commons:commons-jexl3:3.2.1"
     // // https://mvnrepository.com/artifact/ognl/ognl

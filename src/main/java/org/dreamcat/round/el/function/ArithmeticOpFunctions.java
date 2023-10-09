@@ -16,7 +16,7 @@ public class ArithmeticOpFunctions {
     private ArithmeticOpFunctions() {
     }
 
-    private static final ElFunction POS_OP = arguments -> {
+    public static final ElFunction POS_OP = arguments -> {
         Object a = Objects.requireNonNull(arguments[0]);
         if (a instanceof Number) {
             return a;

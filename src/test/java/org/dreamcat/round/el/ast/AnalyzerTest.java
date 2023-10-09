@@ -1,10 +1,12 @@
 package org.dreamcat.round.el.ast;
 
+import java.math.BigInteger;
 import java.text.SimpleDateFormat;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.LongPredicate;
 import lombok.extern.slf4j.Slf4j;
+import org.dreamcat.common.math.MathUtil;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -16,9 +18,8 @@ class AnalyzerTest extends NodeTest {
 
     @Test
     void test() throws Exception {
-        LongPredicate nano = it -> it / 10_000_000 == System.nanoTime() / 10_000_000;
-        // evalNode(el(5), null,
-        //         it -> nano.test((long) it));
+        BigInteger nano = BigInteger.valueOf(System.nanoTime()).divide(BigInteger.valueOf(1000_000_000));
+        System.out.println("nano=" + nano);
 
         String s = "2021-05-25 00:00:00";
         evalNode(el(6),
@@ -26,7 +27,7 @@ class AnalyzerTest extends NodeTest {
                 "s", s);
 
         evalNode(el(7), null,
-                it -> nano.test((Long) (((List<?>) it).get(0))),
+                it -> sqrtAndTrunc(((List<?>) it).get(0)).equals(nano),
                 "s", s);
     }
 
@@ -38,4 +39,9 @@ class AnalyzerTest extends NodeTest {
         }
         return expression;
     }
+
+    public BigInteger sqrtAndTrunc(Object v) {
+        return MathUtil.sqrt((BigInteger) v).divide(BigInteger.valueOf(1000_000_000));
+    }
+
 }

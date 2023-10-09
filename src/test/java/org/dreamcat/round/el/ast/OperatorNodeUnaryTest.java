@@ -32,11 +32,11 @@ class OperatorNodeUnaryTest extends NodeTest {
 
     @Test
     void test_minus3() {
-        System.out.println("python3 -c 'a,c,f,h=3.14,2,0.33,7;print(((---a + ++1 * -c) / f) * h)'");
+        System.out.println("python3 -c 'a,c,f,h=3.14,2,0.33,7;print(---a + ++1 * -c / f * h)'");
         evalNode("---a + ++1 * -b.c d e.f g h", engine -> {
             engine.setFunction("d", OperatorToken.DIV);
             engine.setFunction("g", OperatorToken.MUL);
-        }, -109.030303, "a", 3.14, "b", MapUtil.of("c", 2), "e", new E(0.33), "h", 7);
+        }, -45.564242, "a", 3.14, "b", MapUtil.of("c", 2), "e", new E(0.33), "h", 7);
     }
 
     @Getter

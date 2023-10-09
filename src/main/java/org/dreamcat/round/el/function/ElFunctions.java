@@ -4,6 +4,7 @@ import static org.dreamcat.round.el.function.ArithmeticOpFunctions.ADD_OP;
 import static org.dreamcat.round.el.function.ArithmeticOpFunctions.DIV_OP;
 import static org.dreamcat.round.el.function.ArithmeticOpFunctions.DOUBLE_MUL_OP;
 import static org.dreamcat.round.el.function.ArithmeticOpFunctions.MUL_OP;
+import static org.dreamcat.round.el.function.ArithmeticOpFunctions.POS_OP;
 import static org.dreamcat.round.el.function.ArithmeticOpFunctions.REM_OP;
 import static org.dreamcat.round.el.function.ArithmeticOpFunctions.SUB_OP;
 import static org.dreamcat.round.el.function.BitOpFunctions.BIT_AND_OP;
@@ -51,6 +52,8 @@ public final class ElFunctions {
         register(OperatorToken.DOUBLE_MUL, DOUBLE_MUL_OP);
         register(OperatorToken.DIV, DIV_OP);
         register(OperatorToken.REM, REM_OP);
+        register(OperatorToken.DOUBLE_ADD, POS_OP);
+        register(OperatorToken.DOUBLE_SUB, POS_OP);
 
         register(OperatorToken.BIT_AND, BIT_AND_OP);
         register(OperatorToken.BIT_OR, BIT_OR_OP);
