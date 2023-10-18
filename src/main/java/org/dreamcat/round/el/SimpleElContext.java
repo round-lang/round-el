@@ -3,15 +3,22 @@ package org.dreamcat.round.el;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
+import lombok.AccessLevel;
+import lombok.RequiredArgsConstructor;
 
 /**
  * @author Jerry Will
  * @since 2021-07-06
  */
+@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
 class SimpleElContext implements ElContext {
 
     // private final Map<String, String> symbols = new HashMap<>();
-    private final Map<String, Object> variables = new HashMap<>();
+    private final Map<String, Object> variables;
+
+    SimpleElContext() {
+        variables = new HashMap<>();
+    }
 
     @Override
     public Object get(String name) {
