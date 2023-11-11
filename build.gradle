@@ -50,6 +50,8 @@ dependencies {
     testImplementation 'ognl:ognl:3.3.3'
     // https://mvnrepository.com/artifact/com.alibaba/QLExpress
     testImplementation "com.alibaba:QLExpress:3.3.0"
+    // https://mvnrepository.com/artifact/com.googlecode.aviator/aviator
+    testImplementation 'com.googlecode.aviator:aviator:5.4.1'
 }
 
 test {

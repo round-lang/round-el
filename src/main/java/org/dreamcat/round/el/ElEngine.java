@@ -1,5 +1,6 @@
 package org.dreamcat.round.el;
 
+import java.util.Objects;
 import java.util.function.BiFunction;
 import org.dreamcat.round.el.function.ElFunction;
 import org.dreamcat.round.lex.OperatorToken;
@@ -38,6 +39,14 @@ public interface ElEngine {
 
     default Object evaluate(String expression, ElContext context) {
         return compile(expression).evaluate(context);
+    }
+
+    default boolean evaluateAsBool(String expression) {
+        return evaluateAsBool(expression, ElContext.of());
+    }
+
+    default boolean evaluateAsBool(String expression, ElContext context) {
+        return Objects.equals(evaluate(expression, context), true);
     }
 
     // ==== ==== ==== ====    ==== ==== ==== ====    ==== ==== ==== ====

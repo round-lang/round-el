@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import org.dreamcat.round.el.ElContext;
 import org.dreamcat.round.el.ElEngine;
 import org.dreamcat.round.el.ElLexer;
@@ -34,6 +35,10 @@ public abstract class ElNode {
 
     public Object evaluate(ElContext context, ElEngine engine) {
         throw new UnsupportedOperationException(getClass().getName());
+    }
+
+    public boolean evaluateAsBool(ElContext context, ElEngine engine) {
+        return Objects.equals(evaluate(context, engine), true);
     }
 
     static Object[] evaluateChildren(List<ElNode> children, ElContext context, ElEngine engine) {
