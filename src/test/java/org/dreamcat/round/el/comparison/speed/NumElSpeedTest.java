@@ -1,5 +1,7 @@
 package org.dreamcat.round.el.comparison.speed;
 
+import com.googlecode.aviator.AviatorEvaluator;
+import com.googlecode.aviator.Expression;
 import com.ql.util.express.DefaultContext;
 import com.ql.util.express.ExpressRunner;
 import java.io.IOException;
@@ -48,7 +50,7 @@ class NumElSpeedTest {
     @Test
     void testAll() {
         String[] stack = new String[]{
-                "jexl", "jexl-", "ognl", "ognl-",
+                "jexl", "jexl-", "aviator", "aviator-", "ognl", "ognl-",
                 "qlExpress", "qlExpress-", "el", "el-",
                 "eval", "eval-"/*, "jvm"*/
         };
@@ -63,6 +65,12 @@ class NumElSpeedTest {
                     })
                     .addAction(() -> {
                         jexlEngine.createExpression(expression).evaluate(jexlContext);
+                    })
+                    .addAction(() -> {
+                        aviatorExpression.execute(aviatorEnv);
+                    })
+                    .addAction(() -> {
+                        AviatorEvaluator.execute(expression, aviatorEnv);
                     })
                     .addAction(() -> {
                         node.getValue(ognlContextDefault, ognlContext);
@@ -198,6 +206,9 @@ class NumElSpeedTest {
     static final JexlExpression jexlExpression = jexlEngine.createExpression(expression);
     static final JexlContext jexlContext = new MapContext();
 
+    static final Expression aviatorExpression = AviatorEvaluator.compile(expression);
+    static final Map<String, Object> aviatorEnv = new HashMap<>();
+
     static final Node node;
 
     static {
@@ -226,6 +237,10 @@ class NumElSpeedTest {
         jexlContext.set("a", 3.0);
         jexlContext.set("b", 1.414);
         jexlContext.set("c", 6.32);
+
+        aviatorEnv.put("a", 3.0);
+        aviatorEnv.put("b", 1.414);
+        aviatorEnv.put("c", 6.32);
 
         ognlContext.put("a", 3.0);
         ognlContext.put("b", 1.414);
