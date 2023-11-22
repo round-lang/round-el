@@ -35,7 +35,7 @@ public class TestBase {
     }
 
     public void evaluate(String expression, Consumer<ElEngine> configurator, Object expect, Object... input) {
-        ElContext context = ElContext.of();
+        ElContext context = ElContext.create();
         int size = input.length;
         for (int i = 0; i < size; i += 2) {
             context.set(input[i].toString(), input[i + 1]);

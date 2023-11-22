@@ -8,7 +8,6 @@ import org.dreamcat.common.util.ArrayUtil;
 import org.dreamcat.common.util.NumberUtil;
 import org.dreamcat.round.el.ElContext;
 import org.dreamcat.round.el.ElEngine;
-import org.dreamcat.round.el.ElConfig;
 import org.dreamcat.round.el.TestBase;
 import org.dreamcat.round.lex.Lexer;
 
@@ -39,7 +38,7 @@ public class NodeTest extends TestBase {
     }
 
     public void evalNode(String expression, Consumer<ElEngine> configurator, Predicate<Object> test, Object... input) {
-        ElContext context = ElContext.of();
+        ElContext context = ElContext.create();
         int size = input.length;
         for (int i = 0; i < size; i += 2) {
             context.set(input[i].toString(), input[i + 1]);

@@ -34,7 +34,7 @@ public interface ElEngine {
      * @return result
      */
     default Object evaluate(String expression) {
-        return evaluate(expression, ElContext.of());
+        return evaluate(expression, ElContext.create());
     }
 
     default Object evaluate(String expression, ElContext context) {
@@ -42,7 +42,7 @@ public interface ElEngine {
     }
 
     default boolean evaluateAsBool(String expression) {
-        return evaluateAsBool(expression, ElContext.of());
+        return evaluateAsBool(expression, ElContext.create());
     }
 
     default boolean evaluateAsBool(String expression, ElContext context) {

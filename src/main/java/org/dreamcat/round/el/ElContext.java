@@ -9,11 +9,11 @@ import java.util.Set;
  */
 public interface ElContext {
 
-    static ElContext of() {
+    static ElContext create() {
         return new SimpleElContext();
     }
 
-    static ElContext of(Map<String, Object> m) {
+    static ElContext create(Map<String, Object> m) {
         SimpleElContext context = new SimpleElContext();
         m.forEach(context::set);
         return context;

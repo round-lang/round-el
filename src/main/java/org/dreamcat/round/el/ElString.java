@@ -29,7 +29,7 @@ public interface ElString {
     }
 
     default Object evaluate() {
-        return evaluate(ElContext.of());
+        return evaluate(ElContext.create());
     }
 
     /**
