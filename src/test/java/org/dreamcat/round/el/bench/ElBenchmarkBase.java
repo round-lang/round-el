@@ -1,5 +1,7 @@
 package org.dreamcat.round.el.bench;
 
+import static org.dreamcat.common.util.FunctionUtil.invokeOrNull;
+
 import com.googlecode.aviator.AviatorEvaluator;
 import com.googlecode.aviator.Expression;
 import com.ql.util.express.DefaultContext;
@@ -18,6 +20,7 @@ import org.apache.commons.jexl3.JexlEngine;
 import org.apache.commons.jexl3.JexlExpression;
 import org.apache.commons.jexl3.MapContext;
 import org.apache.commons.jexl3.internal.Engine;
+import org.dreamcat.common.util.FunctionUtil;
 import org.dreamcat.round.el.ElContext;
 import org.dreamcat.round.el.ElEngine;
 import org.dreamcat.round.el.ElString;
@@ -36,10 +39,8 @@ import org.openjdk.jmh.annotations.Warmup;
  * @since 2021-07-07
  */
 @Fork(value = 2)
-// @Measurement(iterations = 20, time = 2)
-// @Warmup(iterations = 5, time = 1)
-@Measurement(iterations = 2, time = 2)
-@Warmup(iterations = 1, time = 1)
+@Measurement(iterations = 5, time = 1)
+@Warmup(iterations = 3, time = 1)
 @State(Scope.Thread)
 @BenchmarkMode(Mode.AverageTime)
 @OutputTimeUnit(TimeUnit.MICROSECONDS)
@@ -50,85 +51,93 @@ public abstract class ElBenchmarkBase {
     private static final ElEngine elEngine = ElEngine.getEngine();
 
     protected final String expr;
-    protected final boolean compiled;
 
-    private JexlExpression jexlExpression;
+    private final JexlExpression jexlExpression;
     private final JexlContext jexlContext = new MapContext();
 
-    private Expression aviatorExpression;
+    private final Expression aviatorExpression;
     private final Map<String, Object> aviatorEnv = new HashMap<>();
 
-    private Node ognlNode;
+    private final Node ognlNode;
     private final Map<String, Object> ognlContext = new HashMap<>();
 
     private final ExpressRunner expressRunner = new ExpressRunner();
     private final DefaultContext<String, Object> qlExpressContext = new DefaultContext<>();
 
-    private ElString elString;
+    private final ElString elString;
     private final ElContext elContext = ElContext.create();
 
     @SneakyThrows
-    public ElBenchmarkBase(String expr, Map<String, Object> ctx, boolean compiled) {
+    public ElBenchmarkBase(String expr, Map<String, Object> ctx) {
         this.expr = expr;
-        this.compiled = compiled;
 
         ctx.forEach(jexlContext::set);
         aviatorEnv.putAll(ctx);
         ognlContext.putAll(ctx);
         qlExpressContext.putAll(ctx);
-
         ctx.forEach(elContext::set);
 
-        if (compiled) {
-            jexlExpression = jexlEngine.createExpression(expr);
-            aviatorExpression = AviatorEvaluator.compile(expr);
-            ognlNode = (Node) Ognl.parseExpression(expr);
+        jexlExpression = invokeOrNull(() -> jexlEngine.createExpression(expr));
+        aviatorExpression = invokeOrNull(() -> AviatorEvaluator.compile(expr));
+        ognlNode = invokeOrNull(() -> (Node) Ognl.parseExpression(expr));
+        try {
             expressRunner.execute(expr, qlExpressContext,
                     Collections.emptyList(), true, false);
-
-            elString = elEngine.compile(expr);
+        } catch (Exception ignore) {
         }
+
+        elString = invokeOrNull(() -> elEngine.compile(expr));
     }
 
     @Benchmark
     public Object jexl() {
-        if (compiled) {
-            return jexlExpression.evaluate(jexlContext);
-        } else {
-            return jexlEngine.createExpression(expr).evaluate(jexlContext);
-        }
+        return jexlEngine.createExpression(expr).evaluate(jexlContext);
+    }
+
+    @Benchmark
+    public Object jexlCompiled() {
+        return jexlExpression.evaluate(jexlContext);
     }
 
     @Benchmark
     public Object aviator() {
-        if (compiled) {
-            return aviatorExpression.execute(aviatorEnv);
-        } else {
-            return AviatorEvaluator.execute(expr, aviatorEnv);
-        }
+        return AviatorEvaluator.execute(expr, aviatorEnv);
+    }
+
+    @Benchmark
+    public Object aviatorCompiled() {
+        return aviatorExpression.execute(aviatorEnv);
     }
 
     @Benchmark
     public Object ognl() throws OgnlException {
-        if (compiled) {
-            return ognlNode.getValue(ognlContextDefault, Collections.emptyMap());
-        } else {
-            return Ognl.getValue(expr, null, ognlContext);
-        }
+        return Ognl.getValue(expr, null, ognlContext);
+    }
+
+    @Benchmark
+    public Object ognlCompiled() throws OgnlException {
+        return ognlNode.getValue(ognlContextDefault, ognlContext);
     }
 
     @Benchmark
     public Object qlExpress() throws Exception {
         return expressRunner.execute(expr, qlExpressContext,
-                Collections.emptyList(), compiled, false);
+                Collections.emptyList(), false, false);
+    }
+
+    @Benchmark
+    public Object qlExpressCompiled() throws Exception {
+        return expressRunner.execute(expr, qlExpressContext,
+                Collections.emptyList(), true, false);
     }
 
     @Benchmark
     public Object el() throws Exception {
-        if (compiled) {
-            return elString.evaluate(elContext);
-        } else {
-            return elEngine.evaluate(expr, elContext);
-        }
+        return elEngine.evaluate(expr, elContext);
+    }
+
+    @Benchmark
+    public Object elCompiled() throws Exception {
+        return elString.evaluate(elContext);
     }
 }

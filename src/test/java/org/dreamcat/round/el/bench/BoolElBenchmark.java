@@ -22,7 +22,7 @@ public class BoolElBenchmark extends ElBenchmarkBase {
     );
 
     public BoolElBenchmark() {
-        super(expression, context, false);
+        super(expression, context);
     }
 
     public static void main(String[] args) throws RunnerException {

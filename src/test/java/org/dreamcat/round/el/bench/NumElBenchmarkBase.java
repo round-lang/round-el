@@ -17,8 +17,8 @@ public abstract class NumElBenchmarkBase extends ElBenchmarkBase{
 
     private final EvalContext evalContext = EvalContext.createContext();
 
-    public NumElBenchmarkBase(String expr, Map<String, Object> ctx, boolean compiled) {
-        super(expr, ctx, compiled);
+    public NumElBenchmarkBase(String expr, Map<String, Object> ctx) {
+        super(expr, ctx);
 
         ctx.forEach((k ,v) -> {
             if (!(v instanceof Number)) return;
