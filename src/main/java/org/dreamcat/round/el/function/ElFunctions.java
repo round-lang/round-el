@@ -141,12 +141,6 @@ public final class ElFunctions {
             else System.out.println(Arrays.toString(args));
             return null;
         });
-        registerTypical("interpolate", args -> {
-            if (args.length == 0) throw new IllegalArgumentException("interpolate: no format string");
-            else if (args.length == 1) return String.valueOf(args[0]);
-            return InterpolationUtil.format(String.valueOf(args[0]),
-                    MapUtil.of(Arrays.copyOfRange(args, 1, args.length)));
-        });
         registerTypical("printi", args -> {
             if (args.length == 0) throw new IllegalArgumentException("printi: no format string");
             else if (args.length == 1) {
@@ -156,6 +150,12 @@ public final class ElFunctions {
                         MapUtil.of(Arrays.copyOfRange(args, 1, args.length))));
             }
             return null;
+        });
+        registerTypical("interpolate", args -> {
+            if (args.length == 0) throw new IllegalArgumentException("interpolate: no format string");
+            else if (args.length == 1) return String.valueOf(args[0]);
+            return InterpolationUtil.format(String.valueOf(args[0]),
+                    MapUtil.of(Arrays.copyOfRange(args, 1, args.length)));
         });
 
         // random
@@ -173,7 +173,6 @@ public final class ElFunctions {
             if (args.length != 2) throw new IllegalArgumentException("choose: missing count or chars");
             else return choose(((Number) args[0]).intValue(), String.valueOf(args[1]));
         });
-        registerTypical("uuid", args -> UUID.randomUUID());
         registerTypical("uuid32", args -> uuid32());
         registerTypical("uuid36", args -> uuid36());
 
@@ -197,6 +196,11 @@ public final class ElFunctions {
             if (args.length == 0) throw new IllegalArgumentException("to_unix_timestamp: no datetime string");
             String arg = String.valueOf(args[0]);
             return DateUtil.parse(arg).getTime() / 1000;
+        });
+        registerTypical("parse_date", args -> {
+            if (args.length == 0) throw new IllegalArgumentException("parse_date: no datetime string");
+            String arg = String.valueOf(args[0]);
+            return DateUtil.parse(arg);
         });
         registerTypical("parse_local_datetime", args -> {
             if (args.length == 0) throw new IllegalArgumentException("parse_local_datetime: no datetime string");
