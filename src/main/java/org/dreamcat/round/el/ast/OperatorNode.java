@@ -4,6 +4,7 @@ import java.util.Objects;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.dreamcat.common.util.ArrayUtil;
+import org.dreamcat.common.util.FunctionUtil;
 import org.dreamcat.round.el.ElContext;
 import org.dreamcat.round.el.ElEngine;
 import org.dreamcat.round.el.exception.ExecuteException;
@@ -94,7 +95,9 @@ public class OperatorNode extends TreeNode {
 
         ElFunction function = null;
         if (arguments.length == 2) {
-            function = engine.getRegisteredFunction(operator, arguments[0].getClass(), arguments[1].getClass());
+            Class<?> argument0 = arguments[0] != null ? arguments[0].getClass() :null;
+            Class<?> argument1 = arguments[1] != null ? arguments[1].getClass() :null;
+            function = engine.getRegisteredFunction(operator, argument0, argument1);
         }
         if (function == null) {
             function = engine.getFunction(operator);

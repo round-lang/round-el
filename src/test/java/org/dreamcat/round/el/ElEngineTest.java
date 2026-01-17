@@ -1,14 +1,12 @@
 package org.dreamcat.round.el;
 
+import lombok.extern.slf4j.Slf4j;
+import org.dreamcat.common.util.ClassLoaderUtil;
+import org.junit.jupiter.api.Test;
+
 import java.io.IOException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Objects;
-import lombok.extern.slf4j.Slf4j;
-import org.dreamcat.common.util.ClassPathUtil;
-import org.junit.jupiter.api.Test;
 
 /**
  * @author Jerry Will
@@ -18,38 +16,20 @@ import org.junit.jupiter.api.Test;
 class ElEngineTest {
 
     private ElEngine createElEngine() {
-        ElEngine engine = ElEngine.getEngine();
+        ElEngine engine = ElEngine.getTypicalEngine();
         // extend function
         engine.getSettings().enableExtendedFunction(true);
         engine.setExtendedFunction(Integer.class, "e", (obj, args) ->
                 Math.E * ((Number) obj).intValue());
         engine.setExtendedFunction(Double.class, "pow3", (obj, args) ->
                 Math.pow(((Number) obj).doubleValue(), 3.0));
-        // custom function
-        engine.setFunction("printf", args -> {
-            System.out.printf((String) args[0], (Object[])
-                    Arrays.copyOfRange(args, 1, args.length));
-            return null;
-        });
-        engine.setFunction("println", args -> {
-            System.out.println(args[0]);
-            return null;
-        });
-        engine.setFunction("date_str_to_number", args -> {
-            try {
-                return new SimpleDateFormat("yyyy-MM-dd hh:mm:ss")
-                        .parse((String) args[0]).getTime();
-            } catch (ParseException e) {
-                throw new RuntimeException(e);
-            }
-        });
         return engine;
     }
 
     @Test
-    void test() throws IOException {
+    void test1() throws IOException {
         ElEngine engine = createElEngine();
-        String expression = ClassPathUtil.getResourceAsString("el.txt");
+        String expression = ClassLoaderUtil.getResourceAsString("el.txt");
         System.out.println(expression);
         System.out.println("---- ---- ---- ----    ---- ---- ---- ----");
         // compile
@@ -67,6 +47,16 @@ class ElEngineTest {
 
         Object result = elString.evaluate(context);
         assert Objects.equals(result, true);
+    }
+
+    @Test
+    void test2() throws IOException {
+        ElEngine engine = createElEngine();
+        String expression = ClassLoaderUtil.getResourceAsString("el_simple.txt");
+        System.out.println(expression);
+        System.out.println("---- ---- ---- ----    ---- ---- ---- ----");
+        Object result = engine.evaluate(expression);
+        System.out.println(result);
     }
 
 }

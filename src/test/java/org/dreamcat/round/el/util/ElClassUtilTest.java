@@ -12,7 +12,7 @@ class ElClassUtilTest {
 
     @Test
     void test() throws IOException {
-        ReflectUtil.retrieveSamePackage("org.dreamcat.round.el")
+        ReflectUtil.retrieveClassesInExactPackage("org.dreamcat.round.el")
                 .forEach(System.out::println);
     }
 }

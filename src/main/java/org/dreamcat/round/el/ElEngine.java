@@ -1,9 +1,11 @@
 package org.dreamcat.round.el;
 
+import org.dreamcat.round.el.function.ElFunction;
+import org.dreamcat.round.el.function.ElFunctions;
+import org.dreamcat.round.lex.OperatorToken;
+
 import java.util.Objects;
 import java.util.function.BiFunction;
-import org.dreamcat.round.el.function.ElFunction;
-import org.dreamcat.round.lex.OperatorToken;
 
 /**
  * Create by tuke on 2020/10/26
@@ -17,6 +19,12 @@ public interface ElEngine {
      */
     static ElEngine getEngine() {
         return new SimpleElEngine();
+    }
+
+    static ElEngine getTypicalEngine() {
+        ElEngine engine = getEngine();
+        ElFunctions.TYPICAL_FUNCTIONS.forEach(engine::setFunction);
+        return engine;
     }
 
     /**

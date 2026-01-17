@@ -1,1 +1,4 @@
 rootProject.name = 'round-el'
+
+include 'round-el-launcher'
+project(":round-el-launcher").projectDir = file("$rootDir/launcher")

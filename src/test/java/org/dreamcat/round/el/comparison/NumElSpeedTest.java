@@ -44,7 +44,8 @@ class NumElSpeedTest extends ElTestBase {
         List<Integer> x = new ArrayList<>();
         List<long[]> y = new ArrayList<>();
         for (int i = 1; i <= (1 << 11); i <<= 1) {
-            long[] ts = Timeit.ofActions()
+            Timeit timeit = Timeit.ofActions();
+            long[] ts = timeit
                     .addAction(() -> {
                         jexlExpression.evaluate(jexlContext);
                     })
@@ -87,9 +88,8 @@ class NumElSpeedTest extends ElTestBase {
                         double a = 3, b = 1.414, c = 6.32;
                         double r = (a + 3.16) * ((b + 3.14) / 2.73 + (b * c - a * 2) / 3.14 + 2 * a * b / c - 6);
                     })*/
-                    .repeat(i).count(10).skip(2)
-                    .run();
-            System.out.printf("%04d%s%n", i, Timeit.formatMs(ts, 12));
+                    .repeat(i).count(10).skip(2).run();
+            System.out.printf("%04d%s%n", i, timeit.formatMs(ts, 12));
             x.add(i);
             y.add(ts);
         }
@@ -107,7 +107,8 @@ class NumElSpeedTest extends ElTestBase {
         List<Integer> x = new ArrayList<>();
         List<long[]> y = new ArrayList<>();
         for (int i = 1; i <= (1 << 11); i <<= 1) {
-            long[] ts = Timeit.ofActions()
+            Timeit timeit = Timeit.ofActions();
+            long[] ts = timeit
                     .addAction(() -> {
                         jexlExpression.evaluate(jexlContext);
                     })
@@ -127,9 +128,8 @@ class NumElSpeedTest extends ElTestBase {
                     .addAction(() -> {
                         evalExpression.evaluate(evalContext);
                     })
-                    .repeat(i).count(10).skip(2)
-                    .run();
-            System.out.printf("%04d%s%n", i, Timeit.formatMs(ts, 12));
+                    .repeat(i).count(10).skip(2).run();
+            System.out.printf("%04d%s%n", i, timeit.formatMs(ts, 12));
             x.add(i);
             y.add(ts);
         }
@@ -147,7 +147,8 @@ class NumElSpeedTest extends ElTestBase {
         List<Integer> x = new ArrayList<>();
         List<long[]> y = new ArrayList<>();
         for (int i = 1; i <= (1 << 11); i <<= 1) {
-            long[] ts = Timeit.ofActions()
+            Timeit timeit = Timeit.ofActions();
+            long[] ts = timeit
                     .addAction(() -> {
                         jexlEngine.createExpression(expression).evaluate(jexlContext);
                     })
@@ -169,7 +170,7 @@ class NumElSpeedTest extends ElTestBase {
                     })
                     .repeat(i).count(10).skip(2)
                     .run();
-            System.out.printf("%04d%s%n", i, Timeit.formatMs(ts, 12));
+            System.out.printf("%04d%s%n", i, timeit.formatMs(ts, 12));
             x.add(i);
             y.add(ts);
         }

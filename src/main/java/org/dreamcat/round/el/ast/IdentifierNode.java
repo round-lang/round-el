@@ -13,6 +13,8 @@ import org.dreamcat.round.el.function.ConstructorFunction;
 import org.dreamcat.round.el.function.ElFunction;
 import org.dreamcat.round.lex.OperatorToken;
 
+import java.util.List;
+
 /**
  * @author Jerry Will
  * @since 2021-07-09
@@ -71,19 +73,21 @@ public class IdentifierNode extends TreeNode {
             throw new ReturnException(returnValue);
         }
 
+        // function calling
+        List<ElNode> argumentChildren = children;
         ElNode child = children.get(0);
         if (children.size() == 1 && child instanceof ParenthesisNode) {
-            children = ((ParenthesisNode) child).children;
+            argumentChildren = ((ParenthesisNode) child).children;
         }
 
         // case a[...]
-        if (children.size() == 1 && child instanceof BracketNode) {
+        if (argumentChildren.size() == 1 && child instanceof BracketNode) {
             Object object = context.get(identifier);
             Object index = child.evaluate(context, engine);
             return BracketFunction.INSTANCE.invoke(object, index);
         }
 
-        Object[] arguments = evaluateChildren(children, context, engine);
+        Object[] arguments = evaluateChildren(argumentChildren, context, engine);
         Class<?>[] parameterTypes = getTypes(arguments);
         // case a(...)
         ElFunction function = engine.getFunction(identifier);

@@ -20,7 +20,7 @@ class SimpleElAssignTest {
     @Test
     void testBool1() {
         ElString el = engine.compile(expression);
-        System.out.println(ReflectUtil.getValue(el, ReflectUtil.retrieveField(
+        System.out.println(ReflectUtil.getFieldValue(el, ReflectUtil.retrieveField(
                 el.getClass(), "root")));
     }
 }

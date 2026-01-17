@@ -13,7 +13,7 @@ mat = [
 
 // invoke
 System.out.println(dict);
-printf("%s = %s + %s", 'kick
+printf("%s = %s + %s%n", 'kick
 your
 ass', tss, dict.size());
 
@@ -41,11 +41,11 @@ size1 = mat.size();
 size2 = mat.get(0).size();
 for(i = 0; i < size1; i = i + 1) {
     for(j = 0; j < size2; j = j + 1) {
-        println(mat.get(0).get(0));
+        printf("mat[%d, %d] = %d%n", i, j, mat.get(i).get(j));
     }
 }
 
 /* return */
-date_str_to_number(s) >= date_str_to_number(x)
+to_timestamp(s) >= to_timestamp(x)
 or Long.parseLong(y) > System.currentTimeMillis()
 or z < z.pow3()

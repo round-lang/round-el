@@ -1,0 +1,30 @@
+// instruction
+import java.util.Date;
+
+n = randi(0, 20);
+for(i = 0; i < n; i = i + 1) {
+    if ((k = Math.random()) < 0.5) {
+        println(interpolate("i = $i, k = ${k}
+doc string $uuid_var
+        ", "i", i, "k", k, "uuid_var", uuid32()));
+    } else if (k > 0.55 ) {
+        printi("hit else#${k}\n", "k", k);
+    } else {
+        // return early
+        return false;
+    }
+}
+
+// invoke
+mat = [
+    1, 2, 3, 4;
+    1, 3, 5, 7;
+];
+System.out.println(mat);
+
+if (s == null) {
+    s = date_format(Date().getTime() + randi(-3600000, 3600000));
+}
+
+/* return */
+to_timestamp(s) >= System.currentTimeMillis()

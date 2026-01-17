@@ -7,7 +7,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
-import org.dreamcat.common.util.ClassPathUtil;
+import org.dreamcat.common.util.ClassLoaderUtil;
 import org.dreamcat.common.util.NumberUtil;
 import org.dreamcat.common.json.JsonUtil;
 
@@ -20,7 +20,7 @@ public class TestBase {
 
     public String expr(String path) {
         try {
-            return ClassPathUtil.getResourceAsString(path);
+            return ClassLoaderUtil.getResourceAsString(path);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

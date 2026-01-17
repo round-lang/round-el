@@ -2,41 +2,38 @@ apply plugin: 'maven-publish'
 apply plugin: 'signing'
 
 /*
-1. Create request in
-https://issues.sonatype.org/secure/CreateIssue.jspa?issuetype=21&pid=10134
-2. Close and Release in
-https://oss.sonatype.org/#stagingRepositories
-3. Or Snapshot
-https://oss.sonatype.org/#view-repositories;snapshots~browsestorage~org/dreamcat/
- */
-def releasesRepoUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
-def snapshotsRepoUrl = "https://oss.sonatype.org/content/repositories/snapshots/"
+https://central.sonatype.com/account
+
+User Token -> oss.username/oss.password
+
+https://central.sonatype.com/namespace/org.dreamcat
+*/
+def releasesRepoUrl = "https://central.sonatype.com/repository/maven-releases"
+def snapshotsRepoUrl = "https://central.sonatype.com/repository/maven-snapshots"
 def isReleaseVersion = !version.endsWith("SNAPSHOT")
 
-tasks.withType(JavaCompile) {
-    options.encoding = "UTF-8"
+javadoc {
+    if (JavaVersion.current().isJava9Compatible()) {
+        options.addBooleanOption('html5', true)
+    }
 }
 
-tasks.withType(Javadoc) {
-    options.encoding = "UTF-8"
-}
-
-tasks.withType(Sign) {
+tasks.register('sourcesJar', Jar) {
     onlyIf { isReleaseVersion }
-}
-
-task sourcesJar(type: Jar) {
     archiveClassifier.set 'sources'
     from sourceSets.main.allJava
 }
 
-task javadocJar(type: Jar) {
+tasks.register('javadocJar', Jar) {
+    onlyIf { isReleaseVersion }
     archiveClassifier.set 'javadoc'
     from javadoc.destinationDir
 }
 
-artifacts {
-    archives javadocJar, sourcesJar
+if (isReleaseVersion) {
+    artifacts {
+        archives javadocJar, sourcesJar
+    }
 }
 
 def pomConfig = {
@@ -61,11 +58,13 @@ def pomConfig = {
 
 publishing {
     publications {
-        mavenJava(MavenPublication) {
-            // components.web for war
+        maven(MavenPublication) {
             from components.java
-            artifact sourcesJar
-            artifact javadocJar
+            // don't share source code any more
+            // if (isReleaseVersion) {
+            //     artifact sourcesJar
+            //     artifact javadocJar
+            // }
 
             versionMapping {
                 usage('java-api') {
@@ -77,7 +76,7 @@ publishing {
             }
 
             groupId project.group
-            artifactId project.name
+            artifactId findProperty('ARTIFACT_ID') ?: project.name
             version project.version
 
             pom.withXml {
@@ -87,8 +86,13 @@ publishing {
                 root.appendNode('description', PROJECT_DESCRIPTION)
                 root.children().last() + pomConfig
             }
+
+            // testFixtures in Gradle 6+ is supported
+            suppressPomMetadataWarningsFor("testFixturesApiElements")
+            suppressPomMetadataWarningsFor("testFixturesRuntimeElements")
         }
     }
+
     repositories {
         maven {
             url isReleaseVersion ? releasesRepoUrl : snapshotsRepoUrl
@@ -100,13 +104,12 @@ publishing {
     }
 }
 
-signing {
-    required { isReleaseVersion && gradle.taskGraph.hasTask("publish") }
-    sign publishing.publications.mavenJava
+tasks.withType(Sign).configureEach {
+    onlyIf { isReleaseVersion }
 }
 
-javadoc {
-    if (JavaVersion.current().isJava9Compatible()) {
-        options.addBooleanOption('html5', true)
-    }
+// signing.keyId, signing.password, signing.secretKeyRingFile
+signing {
+    required { isReleaseVersion }
+    sign publishing.publications.maven
 }

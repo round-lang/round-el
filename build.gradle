@@ -5,45 +5,32 @@ plugins {
 repositories {
     mavenLocal()
     mavenCentral()
-    maven { url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+    maven { url 'https://central.sonatype.com/repository/maven-snapshots/' }
 }
 
 compileJava.options.encoding = 'UTF-8'
 compileTestJava.options.encoding = 'UTF-8'
-sourceCompatibility = JavaVersion.VERSION_1_8
+java.sourceCompatibility = JavaVersion.VERSION_1_8
 group = GROUP_ID
 version = VERSION
 
-ext {
-    // https://mvnrepository.com/artifact/org.slf4j/slf4j-api
-    slf4jVersion = "1.7.36"
-    // https://mvnrepository.com/artifact/org.projectlombok/lombok
-    lombokVersion = "1.18.30"
-    // https://mvnrepository.com/artifact/org.junit.jupiter/junit-jupiter-api
-    junitVersion = "5.10.0"
-    // https://mvnrepository.com/artifact/org.openjdk.jmh/jmh-core
-    jmhVersion = "1.37"
-    // https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind
-    jacksonVersion = '2.14.2'
-}
-
 dependencies {
-    compileOnly "org.projectlombok:lombok:$lombokVersion"
-    annotationProcessor "org.projectlombok:lombok:$lombokVersion"
-    testCompileOnly "org.projectlombok:lombok:$lombokVersion"
-    testAnnotationProcessor "org.projectlombok:lombok:$lombokVersion"
-    implementation "org.slf4j:slf4j-api:$slf4jVersion"
-    testImplementation "org.slf4j:slf4j-simple:$slf4jVersion"
-    testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
-    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
-    testImplementation "org.openjdk.jmh:jmh-core:$jmhVersion"
-    testAnnotationProcessor "org.openjdk.jmh:jmh-generator-annprocess:$jmhVersion"
+    compileOnly libs.lombok
+    annotationProcessor libs.lombok
+    testCompileOnly libs.lombok
+    testAnnotationProcessor libs.lombok
+    implementation libs.slf4j.api
+    testRuntimeOnly libs.slf4j.simple
+    testImplementation libs.jupiter.api
+    testRuntimeOnly libs.jupiter.engine
+    testImplementation libs.jmh.core
+    testAnnotationProcessor libs.jmh.generator.annprocess
 
-    implementation "org.dreamcat:common:0.4"
-    implementation "org.dreamcat:round-lex:0.1"
+    implementation libs.dreamcat.common
+    implementation libs.round.lex
 
-    testImplementation "com.fasterxml.jackson.core:jackson-annotations:$jacksonVersion"
-    testImplementation "com.fasterxml.jackson.core:jackson-databind:$jacksonVersion"
+    testImplementation libs.bundles.jackson
+
     // https://mvnrepository.com/artifact/org.apache.commons/commons-jexl3
     testImplementation "org.apache.commons:commons-jexl3:3.2.1"
     // // https://mvnrepository.com/artifact/ognl/ognl
@@ -58,4 +45,12 @@ test {
     useJUnitPlatform()
 }
 
-apply from: "./publish.gradle"
+apply from: new File(rootDir, 'gradle/publish.gradle')
+
+jar {
+    manifest {
+        attributes(
+                "Main-Class": "org.dreamcat.round.el.ElScriptLauncher",
+        )
+    }
+}
